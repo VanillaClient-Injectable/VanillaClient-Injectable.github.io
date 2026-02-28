@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vanilla Client - Premium Minecraft Utility Mod</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Epilogue:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Epilogue:wght@300;400;500;600;700&display=swap');
+
         :root {
             --bg-0: #050310;
             --bg-1: #0b0720;
@@ -38,7 +37,7 @@
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Epilogue', sans-serif;
+            font-family: 'Epilogue', Georgia, serif;
             background: var(--bg-0);
             color: var(--text);
             line-height: 1.6;
@@ -89,7 +88,7 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Georgia', serif;
             font-size: 1.35rem;
             font-weight: 800;
             color: var(--text);
@@ -148,7 +147,7 @@
             border-radius: 8px;
             color: #fff;
             font-weight: 700;
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Georgia', serif;
             font-size: 0.88rem;
             letter-spacing: 0.02em;
             cursor: pointer;
@@ -217,12 +216,12 @@
         }
 
         h1 {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Georgia', serif;
             font-size: clamp(3rem, 8vw, 5.5rem);
             font-weight: 800;
-            line-height: 1.05;
+            line-height: 1.08;
             margin-bottom: 1.5rem;
-            letter-spacing: -0.03em;
+            letter-spacing: -0.01em;
             background: linear-gradient(135deg, #fff 0%, var(--violet) 50%, var(--purple) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -265,11 +264,11 @@
         .stat:last-child::after { display: none; }
 
         .stat-value {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Georgia', serif;
             font-size: 2.4rem;
             font-weight: 800;
             color: var(--purple-bright);
-            letter-spacing: -0.03em;
+            letter-spacing: -0.01em;
             line-height: 1;
         }
 
@@ -291,7 +290,7 @@
             color: var(--success);
             margin-left: 0.4rem;
             vertical-align: middle;
-            font-family: 'Epilogue', sans-serif;
+            font-family: 'Epilogue', Georgia, serif;
             font-weight: 600;
         }
 
@@ -322,7 +321,7 @@
             border-radius: 10px;
             font-weight: 700;
             font-size: 0.93rem;
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Georgia', serif;
             cursor: pointer;
             transition: all 0.25s;
             text-decoration: none;
@@ -392,10 +391,10 @@
         }
 
         h2 {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Georgia', serif;
             font-size: clamp(1.9rem, 4.5vw, 2.8rem);
             font-weight: 800;
-            letter-spacing: -0.025em;
+            letter-spacing: -0.01em;
             margin-bottom: 0.75rem;
             color: var(--text);
         }
@@ -477,11 +476,11 @@
         }
 
         .bypass-name {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Georgia', serif;
             font-weight: 700;
             font-size: 1rem;
             color: var(--text);
-            letter-spacing: -0.01em;
+            letter-spacing: 0;
         }
 
         .bypass-status {
@@ -574,12 +573,12 @@
         }
 
         .feature-card h3 {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Georgia', serif;
             font-size: 1.2rem;
             font-weight: 700;
             margin-bottom: 0.7rem;
             color: var(--phantom);
-            letter-spacing: -0.01em;
+            letter-spacing: 0;
         }
 
         .feature-card p {
@@ -639,7 +638,7 @@
             border-bottom-right-radius: 10px;
             font-weight: 700;
             font-size: 0.8rem;
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Georgia', serif;
             letter-spacing: 0.04em;
             box-shadow: 0 4px 16px rgba(109,34,204,0.4);
         }
@@ -661,15 +660,15 @@
         }
 
         .pricing-card h3 {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Georgia', serif;
             font-size: 1.6rem;
             font-weight: 800;
             margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.01em;
         }
 
         .price {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Georgia', serif;
             font-size: 3.2rem;
             font-weight: 800;
             margin: 1.3rem 0;
@@ -677,7 +676,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            letter-spacing: -0.04em;
+            letter-spacing: -0.02em;
         }
 
         .price span {
@@ -754,14 +753,14 @@
             justify-content: center;
             font-weight: 800;
             font-size: 1.1rem;
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Georgia', serif;
             border: 1px solid var(--border-bright);
             box-shadow: 0 0 12px rgba(155,69,245,0.3);
             flex-shrink: 0;
         }
 
         .testimonial-info h4 {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Georgia', serif;
             font-size: 1rem;
             font-weight: 700;
             margin-bottom: 0.2rem;
@@ -850,7 +849,7 @@
         }
 
         .update-content h4 {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Georgia', serif;
             font-size: 1.15rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
@@ -912,7 +911,7 @@
             border: 1px solid var(--border);
             border-radius: 10px;
             color: var(--text);
-            font-family: 'Epilogue', sans-serif;
+            font-family: 'Epilogue', Georgia, serif;
             font-size: 0.92rem;
             transition: border-color 0.25s, box-shadow 0.25s;
             outline: none;
@@ -989,7 +988,7 @@
         }
 
         .footer-section h3 {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Georgia', serif;
             font-size: 1.15rem;
             font-weight: 700;
             margin-bottom: 1.3rem;
@@ -1112,11 +1111,11 @@
         }
 
         .modal h3 {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Georgia', serif;
             font-size: 1.8rem;
             font-weight: 800;
             margin-bottom: 0.7rem;
-            letter-spacing: -0.025em;
+            letter-spacing: -0.01em;
         }
 
         .modal p { color: var(--text-dim); margin-bottom: 1.5rem; font-size: 0.92rem; }
@@ -1130,7 +1129,7 @@
         }
 
         .modal-info-box h4 {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Georgia', serif;
             color: var(--purple-bright);
             margin-bottom: 0.6rem;
             font-size: 0.95rem;
@@ -1158,7 +1157,7 @@
         }
 
         .user-counter .live-counter {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Georgia', serif;
             font-weight: 700;
             color: var(--purple-bright);
         }
@@ -1174,7 +1173,7 @@
             font-size: 0.72rem;
             font-weight: 700;
             letter-spacing: 0.08em;
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', 'Georgia', serif;
         }
 
         .fade-in {
