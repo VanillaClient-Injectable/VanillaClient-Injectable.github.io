@@ -6,12 +6,9 @@
     <title>Vanilla Client - Premium Minecraft Utility Mod</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Epilogue:wght@300;400;500;600;700&display=swap');
-
         :root {
             --bg-0: #050310;
             --bg-1: #0b0720;
-            --bg-2: #110d2c;
             --bg-card: #140e30;
             --bg-hover: #1c1540;
             --purple: #9b45f5;
@@ -23,1917 +20,578 @@
             --text: #f0e8ff;
             --text-dim: #c0a8e8;
             --text-muted: #7a6090;
-            --border: rgba(120, 60, 200, 0.3);
-            --border-bright: rgba(155, 69, 245, 0.6);
-            --glow: rgba(155, 69, 245, 0.25);
-            --glow-bright: rgba(155, 69, 245, 0.5);
+            --border: rgba(120,60,200,0.3);
+            --border-bright: rgba(155,69,245,0.6);
+            --glow: rgba(155,69,245,0.25);
+            --glow-bright: rgba(155,69,245,0.5);
             --success: #34d399;
             --error: #f87171;
-            --shadow: 0 0 32px rgba(109, 34, 204, 0.3);
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        html { scroll-behavior: smooth; }
-
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
         body {
-            font-family: 'Epilogue', Georgia, serif;
-            background: var(--bg-0);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-0); color: var(--text); line-height:1.6; overflow-x:hidden;
         }
-
-        ::selection { background: rgba(155, 69, 245, 0.35); color: #fff; }
+        h1,h2,h3,h4,.logo,.nav-cta,.btn,.stat-value,.price,
+        .bypass-name,.popular-badge,.testimonial-avatar,
+        .user-counter .live-counter,.beta-badge,.section-label,.update-tag,.pricing-card h3 {
+            font-family: 'Trebuchet MS','Century Gothic','Lucida Grande',Verdana,sans-serif;
+        }
+        ::selection { background:rgba(155,69,245,0.35); color:#fff; }
 
         .phantom-bg {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
+            position:fixed; inset:0; pointer-events:none; z-index:0;
             background:
-                radial-gradient(ellipse 900px 600px at 80% 10%, rgba(109,34,204,0.18) 0%, transparent 65%),
-                radial-gradient(ellipse 700px 500px at 10% 80%, rgba(155,69,245,0.12) 0%, transparent 65%),
-                radial-gradient(ellipse 500px 400px at 50% 50%, rgba(76,20,160,0.08) 0%, transparent 70%),
-                linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 50%, var(--bg-0) 100%);
+                radial-gradient(ellipse 900px 600px at 80% 10%,rgba(109,34,204,0.18) 0%,transparent 65%),
+                radial-gradient(ellipse 700px 500px at 10% 80%,rgba(155,69,245,0.12) 0%,transparent 65%),
+                radial-gradient(ellipse 500px 400px at 50% 50%,rgba(76,20,160,0.08) 0%,transparent 70%),
+                linear-gradient(180deg,var(--bg-0) 0%,var(--bg-1) 50%,var(--bg-0) 100%);
         }
-
         .grid-lines {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.03;
-            background-image:
-                linear-gradient(rgba(155,69,245,1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(155,69,245,1) 1px, transparent 1px);
-            background-size: 60px 60px;
+            position:fixed; inset:0; pointer-events:none; z-index:0; opacity:0.03;
+            background-image:linear-gradient(rgba(155,69,245,1) 1px,transparent 1px),linear-gradient(90deg,rgba(155,69,245,1) 1px,transparent 1px);
+            background-size:60px 60px;
         }
 
+        /* NAV */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            background: rgba(5, 3, 16, 0.8);
-            backdrop-filter: blur(24px);
-            border-bottom: 1px solid var(--border);
+            position:fixed; top:0; width:100%; padding:1.2rem 5%;
+            display:flex; justify-content:space-between; align-items:center;
+            z-index:100; background:rgba(5,3,16,0.85); backdrop-filter:blur(24px);
+            border-bottom:1px solid var(--border);
         }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-family: 'Syne', 'Georgia', serif;
-            font-size: 1.35rem;
-            font-weight: 800;
-            color: var(--text);
-            text-decoration: none;
-            letter-spacing: -0.02em;
-        }
-
-        .logo img {
-            width: 38px;
-            height: 38px;
-            border-radius: 9px;
-            border: 1px solid var(--border-bright);
-            box-shadow: 0 0 16px var(--glow);
-            transition: box-shadow 0.3s, transform 0.3s;
-        }
-
-        .logo:hover img {
-            box-shadow: 0 0 28px var(--glow-bright);
-            transform: scale(1.08) rotate(3deg);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-dim);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            letter-spacing: 0.01em;
-            transition: color 0.25s;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--purple-bright);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover { color: var(--phantom); }
-        .nav-links a:hover::after { width: 100%; }
-
+        .logo { display:flex; align-items:center; gap:0.75rem; font-size:1.25rem; font-weight:800; color:var(--text); text-decoration:none; letter-spacing:0; }
+        .logo img { width:38px; height:38px; border-radius:9px; border:1px solid var(--border-bright); box-shadow:0 0 16px var(--glow); transition:all 0.3s; }
+        .logo:hover img { box-shadow:0 0 28px var(--glow-bright); transform:scale(1.08) rotate(3deg); }
+        .nav-links { display:flex; gap:2.2rem; list-style:none; }
+        .nav-links a { color:var(--text-dim); text-decoration:none; font-weight:500; font-size:0.9rem; transition:color 0.25s; position:relative; }
+        .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px; background:var(--purple-bright); transition:width 0.3s; }
+        .nav-links a:hover { color:var(--phantom); }
+        .nav-links a:hover::after { width:100%; }
         .nav-cta {
-            padding: 0.65rem 1.4rem;
-            background: linear-gradient(135deg, var(--purple-deep), var(--purple));
-            border: none;
-            border-radius: 8px;
-            color: #fff;
-            font-weight: 700;
-            font-family: 'Syne', 'Georgia', serif;
-            font-size: 0.88rem;
-            letter-spacing: 0.02em;
-            cursor: pointer;
-            transition: transform 0.25s, box-shadow 0.25s;
-            text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 0 20px rgba(109,34,204,0.4);
+            padding:0.65rem 1.4rem; background:linear-gradient(135deg,var(--purple-deep),var(--purple));
+            border:none; border-radius:8px; color:#fff; font-weight:700; font-size:0.88rem;
+            letter-spacing:0.02em; cursor:pointer; transition:all 0.25s; text-decoration:none;
+            display:inline-block; box-shadow:0 0 20px rgba(109,34,204,0.4);
         }
+        .nav-cta:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(155,69,245,0.5); }
+        .mobile-menu-btn { display:none; background:none; border:none; color:var(--text); font-size:1.4rem; cursor:pointer; }
+        .user-counter { display:inline-flex; align-items:center; gap:0.5rem; padding:0.5rem 1rem; background:rgba(109,34,204,0.1); border:1px solid var(--border); border-radius:50px; font-size:0.85rem; color:var(--text-dim); }
+        .user-counter .live-counter { font-weight:700; color:var(--purple-bright); }
 
-        .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(155,69,245,0.5);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text);
-            font-size: 1.4rem;
-            cursor: pointer;
-        }
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 9rem 5% 5rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-content {
-            max-width: 860px;
-            text-align: center;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.5rem 1.1rem;
-            background: rgba(109,34,204,0.15);
-            border: 1px solid var(--border-bright);
-            border-radius: 50px;
-            font-size: 0.82rem;
-            color: var(--violet);
-            font-weight: 600;
-            margin-bottom: 2rem;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-        }
-
-        .badge-pulse {
-            width: 7px;
-            height: 7px;
-            background: var(--success);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.85); }
-        }
+        /* HERO */
+        .hero { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:9rem 5% 5rem; position:relative; z-index:1; }
+        .hero-content { max-width:860px; text-align:center; }
+        .beta-badge { position:absolute; top:20px; right:20px; background:linear-gradient(135deg,var(--purple-dim),var(--purple)); color:#fff; padding:0.3rem 0.8rem; border-radius:10px; font-size:0.72rem; font-weight:700; letter-spacing:0.08em; }
+        .hero-badge { display:inline-flex; align-items:center; gap:0.6rem; padding:0.5rem 1.1rem; background:rgba(109,34,204,0.15); border:1px solid var(--border-bright); border-radius:50px; font-size:0.82rem; color:var(--violet); font-weight:600; margin-bottom:2rem; letter-spacing:0.04em; text-transform:uppercase; }
+        .badge-pulse { width:7px; height:7px; background:var(--success); border-radius:50%; animation:pulse 2s infinite; }
+        @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.85)} }
 
         h1 {
-            font-family: 'Syne', 'Georgia', serif;
-            font-size: clamp(3rem, 8vw, 5.5rem);
-            font-weight: 800;
-            line-height: 1.08;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.01em;
-            background: linear-gradient(135deg, #fff 0%, var(--violet) 50%, var(--purple) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-subtitle {
-            font-size: 1.15rem;
-            color: var(--text-dim);
-            max-width: 580px;
-            margin: 0 auto 2.5rem;
-            font-weight: 400;
-            line-height: 1.7;
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 3.5rem;
-            margin-bottom: 2.5rem;
-            flex-wrap: wrap;
-        }
-
-        .stat {
-            text-align: center;
-            position: relative;
-        }
-
-        .stat::after {
-            content: '';
-            position: absolute;
-            right: -1.75rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 1px;
-            height: 40px;
-            background: var(--border);
-        }
-
-        .stat:last-child::after { display: none; }
-
-        .stat-value {
-            font-family: 'Syne', 'Georgia', serif;
-            font-size: 2.4rem;
-            font-weight: 800;
-            color: var(--purple-bright);
-            letter-spacing: -0.01em;
-            line-height: 1;
-        }
-
-        .stat-label {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-top: 0.3rem;
-        }
-
-        .version-badge {
-            display: inline-block;
-            padding: 0.2rem 0.6rem;
-            background: rgba(52, 211, 153, 0.12);
-            border: 1px solid rgba(52, 211, 153, 0.3);
-            border-radius: 20px;
-            font-size: 0.72rem;
-            color: var(--success);
-            margin-left: 0.4rem;
-            vertical-align: middle;
-            font-family: 'Epilogue', Georgia, serif;
-            font-weight: 600;
-        }
-
-        .guarantee-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.55rem 1.1rem;
-            background: rgba(109,34,204,0.12);
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            font-size: 0.82rem;
-            color: var(--text-dim);
-            margin-bottom: 2.5rem;
-        }
-
-        .guarantee-badge i { color: var(--purple-bright); }
-
-        .hero-buttons {
-            display: flex;
-            gap: 0.9rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 0.9rem 1.8rem;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 0.93rem;
-            font-family: 'Syne', 'Georgia', serif;
-            cursor: pointer;
-            transition: all 0.25s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.55rem;
-            letter-spacing: 0.01em;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple) 100%);
-            color: #fff;
-            border: none;
-            box-shadow: 0 4px 24px rgba(109,34,204,0.45);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 36px rgba(155,69,245,0.55);
-        }
-
-        .btn-secondary {
-            background: rgba(109,34,204,0.08);
-            color: var(--text-dim);
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--border-bright);
-            color: var(--phantom);
-            background: rgba(109,34,204,0.18);
-        }
-
-        .section-z { position: relative; z-index: 1; }
-
-        .bypasses-section {
-            padding: 6rem 5%;
-            position: relative;
-            z-index: 1;
-        }
-
-        .bypasses-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 0%, rgba(109,34,204,0.04) 50%, transparent 100%);
-            pointer-events: none;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 3.5rem;
-        }
-
-        .section-label {
-            display: inline-block;
-            padding: 0.45rem 1rem;
-            background: rgba(155, 69, 245, 0.1);
-            border: 1px solid rgba(155, 69, 245, 0.35);
-            border-radius: 50px;
-            color: var(--purple-bright);
-            font-size: 0.78rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            margin-bottom: 1rem;
-        }
-
-        h2 {
-            font-family: 'Syne', 'Georgia', serif;
-            font-size: clamp(1.9rem, 4.5vw, 2.8rem);
-            font-weight: 800;
-            letter-spacing: -0.01em;
-            margin-bottom: 0.75rem;
-            color: var(--text);
-        }
-
-        .section-subtitle {
-            color: var(--text-muted);
-            max-width: 540px;
-            margin: 0 auto;
-            font-size: 1rem;
-        }
-
-        .bypasses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .bypass-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 1.6rem 1.4rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            transition: all 0.28s;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-
-        .bypass-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--purple-bright), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .bypass-card:hover {
-            border-color: var(--border-bright);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(109,34,204,0.3);
-            background: var(--bg-hover);
-        }
-
-        .bypass-card:hover::before { opacity: 1; }
-
-        .bypass-icon-wrap {
-            width: 52px;
-            height: 52px;
-            border-radius: 14px;
-            background: rgba(155,69,245,0.12);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.28s;
-        }
-
-        .bypass-card:hover .bypass-icon-wrap {
-            background: rgba(155,69,245,0.22);
-            border-color: var(--border-bright);
-            box-shadow: 0 0 16px rgba(155,69,245,0.25);
-        }
-
-        .bypass-icon-wrap img {
-            width: 28px;
-            height: 28px;
-            object-fit: contain;
-            border-radius: 6px;
-        }
-
-        .bypass-name {
-            font-family: 'Syne', 'Georgia', serif;
-            font-weight: 700;
-            font-size: 1rem;
-            color: var(--text);
-            letter-spacing: 0;
-        }
-
-        .bypass-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.3rem 0.75rem;
-            background: rgba(52, 211, 153, 0.1);
-            border: 1px solid rgba(52, 211, 153, 0.25);
-            border-radius: 20px;
-            font-size: 0.75rem;
-            color: var(--success);
-            font-weight: 600;
-            letter-spacing: 0.04em;
-        }
-
-        .bypass-status::before {
-            content: '';
-            width: 5px;
-            height: 5px;
-            background: var(--success);
-            border-radius: 50%;
-        }
-
-        .features {
-            padding: 6rem 5%;
-            background: rgba(11,7,32,0.6);
-            position: relative;
-            z-index: 1;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 1.8rem;
-            transition: all 0.28s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--purple-bright), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 16px 40px rgba(109,34,204,0.25);
-            border-color: var(--border-bright);
-            background: var(--bg-hover);
-        }
-
-        .feature-card:hover::after { opacity: 1; }
-
-        .feature-icon {
-            width: 52px;
-            height: 52px;
-            background: rgba(155,69,245,0.12);
-            border-radius: 13px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.3rem;
-            color: var(--purple-bright);
-            font-size: 1.3rem;
-            border: 1px solid var(--border);
-            transition: all 0.28s;
-        }
-
-        .feature-card:hover .feature-icon {
-            background: rgba(155,69,245,0.22);
-            border-color: var(--border-bright);
-            box-shadow: 0 0 20px rgba(155,69,245,0.3);
-        }
-
-        .feature-card h3 {
-            font-family: 'Syne', 'Georgia', serif;
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.7rem;
-            color: var(--phantom);
-            letter-spacing: 0;
-        }
-
-        .feature-card p {
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            line-height: 1.65;
-        }
-
-        .pricing {
-            padding: 6rem 5%;
-            position: relative;
-            z-index: 1;
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 2rem;
-            max-width: 900px;
-            margin: 3.5rem auto 0;
-        }
-
-        .pricing-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 22px;
-            padding: 2.8rem;
-            text-align: center;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pricing-card.popular {
-            border-color: var(--purple-bright);
-            box-shadow: 0 0 50px rgba(155,69,245,0.2), inset 0 0 60px rgba(109,34,204,0.05);
-        }
-
-        .pricing-card.popular::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--purple-bright), transparent);
-        }
-
-        .popular-badge {
-            position: absolute;
-            top: 0;
-            right: 2rem;
-            background: linear-gradient(135deg, var(--purple-deep), var(--purple));
-            color: #fff;
-            padding: 0.45rem 1.3rem;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-            font-weight: 700;
-            font-size: 0.8rem;
-            font-family: 'Syne', 'Georgia', serif;
-            letter-spacing: 0.04em;
-            box-shadow: 0 4px 16px rgba(109,34,204,0.4);
-        }
-
-        .pricing-card:hover { transform: translateY(-8px); }
-
-        .pricing-icon {
-            width: 72px;
-            height: 72px;
-            background: rgba(155,69,245,0.12);
-            border: 1px solid var(--border);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            color: var(--purple-bright);
-            font-size: 1.8rem;
-        }
-
-        .pricing-card h3 {
-            font-family: 'Syne', 'Georgia', serif;
-            font-size: 1.6rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.01em;
-        }
-
-        .price {
-            font-family: 'Syne', 'Georgia', serif;
-            font-size: 3.2rem;
-            font-weight: 800;
-            margin: 1.3rem 0;
-            background: linear-gradient(135deg, var(--violet), var(--purple-bright));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.02em;
-        }
-
-        .price span {
-            font-size: 1rem;
-            color: var(--text-muted);
-            -webkit-text-fill-color: var(--text-muted);
-        }
-
-        .pricing-features {
-            list-style: none;
-            margin: 1.8rem 0;
-            text-align: left;
-        }
-
-        .pricing-features li {
-            padding: 0.7rem 0;
-            color: var(--text-dim);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            font-size: 0.92rem;
-        }
-
-        .pricing-features li:last-child { border-bottom: none; }
-
-        .pricing-features li i { color: var(--success); font-size: 0.85rem; }
-
-        .pricing-card .btn { width: 100%; justify-content: center; margin-top: 1.5rem; }
-
-        .testimonials {
-            padding: 6rem 5%;
-            background: rgba(11,7,32,0.6);
-            position: relative;
-            z-index: 1;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            max-width: 1200px;
-            margin: 3.5rem auto 0;
-        }
-
-        .testimonial-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 1.8rem;
-            transition: all 0.28s;
-        }
-
-        .testimonial-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 14px 30px rgba(109,34,204,0.2);
-            border-color: var(--border-bright);
-        }
-
-        .testimonial-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .testimonial-avatar {
-            width: 46px;
-            height: 46px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--purple-deep), var(--purple));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 1.1rem;
-            font-family: 'Syne', 'Georgia', serif;
-            border: 1px solid var(--border-bright);
-            box-shadow: 0 0 12px rgba(155,69,245,0.3);
-            flex-shrink: 0;
-        }
-
-        .testimonial-info h4 {
-            font-family: 'Syne', 'Georgia', serif;
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 0.2rem;
-        }
-
-        .testimonial-rating {
-            color: #f59e0b;
-            font-size: 0.82rem;
-            margin-bottom: 0.15rem;
-        }
-
-        .testimonial-date {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-        }
-
-        .testimonial-text {
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            line-height: 1.65;
-        }
-
-        .updates {
-            padding: 6rem 5%;
-            position: relative;
-            z-index: 1;
-        }
-
-        .updates-timeline {
-            max-width: 780px;
-            margin: 3.5rem auto 0;
-            position: relative;
-        }
-
-        .updates-timeline::before {
-            content: '';
-            position: absolute;
-            left: 30px;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            background: linear-gradient(180deg, transparent, var(--purple), transparent);
-        }
-
-        .update-item {
-            display: flex;
-            margin-bottom: 2.5rem;
-            position: relative;
-        }
-
-        .update-date {
-            width: 60px;
-            text-align: center;
-            margin-right: 2rem;
-            flex-shrink: 0;
-        }
-
-        .update-badge {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--purple-deep), var(--purple));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.15rem;
-            color: #fff;
-            position: relative;
-            z-index: 1;
-            box-shadow: 0 0 20px rgba(155,69,245,0.4);
-        }
-
-        .update-content {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 1.5rem;
-            flex-grow: 1;
-            transition: all 0.28s;
-        }
-
-        .update-content:hover {
-            transform: translateX(5px);
-            box-shadow: 0 8px 24px rgba(109,34,204,0.2);
-            border-color: var(--border-bright);
-        }
-
-        .update-content h4 {
-            font-family: 'Syne', 'Georgia', serif;
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--purple-bright);
-        }
-
-        .update-tag {
-            display: inline-block;
-            padding: 0.22rem 0.7rem;
-            background: rgba(155,69,245,0.1);
-            border: 1px solid rgba(155,69,245,0.3);
-            border-radius: 20px;
-            font-size: 0.72rem;
-            color: var(--purple-bright);
-            font-weight: 700;
-            margin-bottom: 0.8rem;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-        }
-
-        .update-text {
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            line-height: 1.65;
-        }
-
-        .support-section {
-            padding: 6rem 5%;
-            background: rgba(11,7,32,0.6);
-            position: relative;
-            z-index: 1;
-        }
-
-        .hwid-form {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 2.5rem;
-            max-width: 680px;
-            margin: 3.5rem auto 0;
-        }
-
-        .form-group { margin-bottom: 1.4rem; }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 0.85rem 1rem;
-            background: rgba(109,34,204,0.07);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            color: var(--text);
-            font-family: 'Epilogue', Georgia, serif;
-            font-size: 0.92rem;
-            transition: border-color 0.25s, box-shadow 0.25s;
-            outline: none;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            border-color: var(--purple-bright);
-            box-shadow: 0 0 0 3px rgba(155,69,245,0.12);
-        }
-
-        .form-group select option { background: var(--bg-1); }
-
-        .form-note {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 0.4rem;
-        }
-
-        .status-message {
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 1.4rem;
-            display: none;
-            font-size: 0.9rem;
-        }
-
-        .status-success {
-            background: rgba(52, 211, 153, 0.1);
-            border: 1px solid rgba(52, 211, 153, 0.3);
-            color: var(--success);
-        }
-
-        .status-error {
-            background: rgba(248, 113, 113, 0.1);
-            border: 1px solid rgba(248, 113, 113, 0.3);
-            color: var(--error);
-        }
-
-        .discord-cta {
-            text-align: center;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border);
-            color: var(--text-dim);
-            font-size: 0.88rem;
-            line-height: 1.8;
-        }
-
-        .discord-cta a {
-            color: var(--purple-bright);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.25s;
-        }
-
-        .discord-cta a:hover { color: var(--violet); }
-
-        .footer {
-            padding: 4rem 5%;
-            background: rgba(5,3,16,0.9);
-            border-top: 1px solid var(--border);
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 3rem;
-        }
-
-        .footer-section h3 {
-            font-family: 'Syne', 'Georgia', serif;
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 1.3rem;
-            color: var(--phantom);
-        }
-
-        .footer-section p {
-            color: var(--text-muted);
-            font-size: 0.88rem;
-            line-height: 1.7;
-        }
-
-        .footer-links {
-            list-style: none;
-            display: grid;
-            gap: 0.55rem;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.88rem;
-            transition: color 0.25s;
-        }
-
-        .footer-links a:hover { color: var(--purple-bright); }
-
-        .footer-links li { color: var(--text-muted); font-size: 0.88rem; }
-
-        .social-links {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 1.3rem;
-        }
-
-        .social-links a {
-            width: 38px;
-            height: 38px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-dim);
-            text-decoration: none;
-            transition: all 0.25s;
-            font-size: 0.95rem;
-        }
-
-        .social-links a:hover {
-            background: rgba(155,69,245,0.2);
-            border-color: var(--border-bright);
-            color: var(--purple-bright);
-            transform: translateY(-3px);
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 3.5rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
-            font-size: 0.82rem;
-            line-height: 1.8;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(5,3,16,0.85);
-            backdrop-filter: blur(12px);
-            z-index: 10000;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-
-        .modal-content {
-            background: var(--bg-1);
-            border: 1px solid var(--border-bright);
-            border-radius: 22px;
-            padding: 2.8rem;
-            max-width: 500px;
-            width: 100%;
-            position: relative;
-            animation: modalIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
-            box-shadow: 0 0 60px rgba(109,34,204,0.35);
-        }
-
-        @keyframes modalIn {
-            from { opacity: 0; transform: translateY(-20px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 1.2rem;
-            right: 1.2rem;
-            background: rgba(109,34,204,0.1);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text-dim);
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.25s;
-        }
-
-        .close-modal:hover {
-            border-color: var(--border-bright);
-            color: var(--purple-bright);
-        }
-
-        .modal h3 {
-            font-family: 'Syne', 'Georgia', serif;
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 0.7rem;
-            letter-spacing: -0.01em;
-        }
-
-        .modal p { color: var(--text-dim); margin-bottom: 1.5rem; font-size: 0.92rem; }
-
-        .modal-info-box {
-            background: rgba(155,69,245,0.08);
-            border: 1px solid rgba(155,69,245,0.25);
-            border-radius: 12px;
-            padding: 1.3rem;
-            margin-bottom: 1.8rem;
-        }
-
-        .modal-info-box h4 {
-            font-family: 'Syne', 'Georgia', serif;
-            color: var(--purple-bright);
-            margin-bottom: 0.6rem;
-            font-size: 0.95rem;
-        }
-
-        .modal-info-box p {
-            color: var(--text-dim);
-            font-size: 0.85rem;
-            line-height: 1.8;
-            margin: 0;
-        }
-
-        .modal .btn { width: 100%; justify-content: center; }
-
-        .user-counter {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(109,34,204,0.1);
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            font-size: 0.85rem;
-            color: var(--text-dim);
-        }
-
-        .user-counter .live-counter {
-            font-family: 'Syne', 'Georgia', serif;
-            font-weight: 700;
-            color: var(--purple-bright);
-        }
-
-        .beta-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, var(--purple-dim), var(--purple));
-            color: #fff;
-            padding: 0.3rem 0.8rem;
-            border-radius: 10px;
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            font-family: 'Syne', 'Georgia', serif;
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.55s, transform 0.55s;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @media (max-width: 992px) {
-            .nav-links { display: none; }
-            .mobile-menu-btn { display: block; }
-            .hero-stats { gap: 2rem; }
-            .stat::after { display: none; }
-        }
-
-        @media (max-width: 768px) {
-            .hero { padding: 7rem 5% 3rem; }
-            .hero-buttons { flex-direction: column; align-items: center; }
-            .btn { width: 100%; max-width: 300px; justify-content: center; }
-            .features-grid { grid-template-columns: 1fr; }
-            .modal-content { padding: 2rem 1.4rem; }
-            .bypasses-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (max-width: 480px) {
-            .bypasses-grid { grid-template-columns: 1fr 1fr; }
-        }
+            font-size:clamp(2.8rem,7vw,5rem); font-weight:900; line-height:1.1;
+            margin-bottom:1.5rem; letter-spacing:0.01em;
+            background:linear-gradient(135deg,#fff 0%,var(--violet) 50%,var(--purple) 100%);
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+        }
+        .hero-subtitle { font-size:1.1rem; color:var(--text-dim); max-width:580px; margin:0 auto 2.5rem; font-weight:400; line-height:1.7; }
+        .hero-stats { display:flex; justify-content:center; gap:3.5rem; margin-bottom:2.5rem; flex-wrap:wrap; }
+        .stat { text-align:center; position:relative; }
+        .stat::after { content:''; position:absolute; right:-1.75rem; top:50%; transform:translateY(-50%); width:1px; height:40px; background:var(--border); }
+        .stat:last-child::after { display:none; }
+        .stat-value { font-size:2.4rem; font-weight:800; color:var(--purple-bright); letter-spacing:0; line-height:1; }
+        .stat-label { font-size:0.78rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.1em; margin-top:0.3rem; }
+        .version-badge { display:inline-block; padding:0.2rem 0.6rem; background:rgba(52,211,153,0.12); border:1px solid rgba(52,211,153,0.3); border-radius:20px; font-size:0.72rem; color:var(--success); margin-left:0.4rem; vertical-align:middle; font-weight:600; }
+        .guarantee-badge { display:inline-flex; align-items:center; gap:0.5rem; padding:0.55rem 1.1rem; background:rgba(109,34,204,0.12); border:1px solid var(--border); border-radius:50px; font-size:0.82rem; color:var(--text-dim); margin-bottom:2.5rem; }
+        .guarantee-badge i { color:var(--purple-bright); }
+        .hero-buttons { display:flex; gap:0.9rem; justify-content:center; flex-wrap:wrap; }
+        .btn { padding:0.9rem 1.8rem; border-radius:10px; font-weight:700; font-size:0.93rem; cursor:pointer; transition:all 0.25s; text-decoration:none; display:inline-flex; align-items:center; gap:0.55rem; letter-spacing:0.01em; }
+        .btn-primary { background:linear-gradient(135deg,var(--purple-deep),var(--purple)); color:#fff; border:none; box-shadow:0 4px 24px rgba(109,34,204,0.45); }
+        .btn-primary:hover { transform:translateY(-3px); box-shadow:0 12px 36px rgba(155,69,245,0.55); }
+        .btn-secondary { background:rgba(109,34,204,0.08); color:var(--text-dim); border:1px solid var(--border); }
+        .btn-secondary:hover { border-color:var(--border-bright); color:var(--phantom); background:rgba(109,34,204,0.18); }
+
+        /* SECTIONS */
+        .section-z { position:relative; z-index:1; }
+        .section-header { text-align:center; margin-bottom:3.5rem; }
+        .section-label { display:inline-block; padding:0.45rem 1rem; background:rgba(155,69,245,0.1); border:1px solid rgba(155,69,245,0.35); border-radius:50px; color:var(--purple-bright); font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:1rem; }
+        h2 { font-size:clamp(1.9rem,4.5vw,2.8rem); font-weight:800; letter-spacing:0; margin-bottom:0.75rem; color:var(--text); }
+        .section-subtitle { color:var(--text-muted); max-width:540px; margin:0 auto; font-size:1rem; }
+
+        /* BYPASSES */
+        .bypasses-section { padding:6rem 5%; position:relative; z-index:1; }
+        .bypasses-section::before { content:''; position:absolute; inset:0; background:linear-gradient(180deg,transparent 0%,rgba(109,34,204,0.04) 50%,transparent 100%); pointer-events:none; }
+        .bypasses-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1.2rem; max-width:1200px; margin:0 auto; }
+        .bypass-card { background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:1.6rem 1.4rem; display:flex; flex-direction:column; align-items:center; gap:1rem; transition:all 0.28s; position:relative; overflow:hidden; text-align:center; }
+        .bypass-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--purple-bright),transparent); opacity:0; transition:opacity 0.3s; }
+        .bypass-card:hover { border-color:var(--border-bright); transform:translateY(-4px); box-shadow:0 12px 32px rgba(109,34,204,0.3); background:var(--bg-hover); }
+        .bypass-card:hover::before { opacity:1; }
+        .bypass-icon-wrap { width:52px; height:52px; border-radius:14px; background:rgba(155,69,245,0.12); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; transition:all 0.28s; }
+        .bypass-card:hover .bypass-icon-wrap { background:rgba(155,69,245,0.22); border-color:var(--border-bright); box-shadow:0 0 16px rgba(155,69,245,0.25); }
+        .bypass-icon-wrap img { width:28px; height:28px; object-fit:contain; border-radius:6px; }
+        .bypass-name { font-weight:700; font-size:1rem; color:var(--text); letter-spacing:0; }
+        .bypass-status { display:inline-flex; align-items:center; gap:0.4rem; padding:0.3rem 0.75rem; background:rgba(52,211,153,0.1); border:1px solid rgba(52,211,153,0.25); border-radius:20px; font-size:0.75rem; color:var(--success); font-weight:600; letter-spacing:0.04em; }
+        .bypass-status::before { content:''; width:5px; height:5px; background:var(--success); border-radius:50%; }
+
+        /* FEATURES */
+        .features { padding:6rem 5%; background:rgba(11,7,32,0.6); position:relative; z-index:1; }
+        .features-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.5rem; max-width:1400px; margin:0 auto; }
+        .feature-card { background:var(--bg-card); border:1px solid var(--border); border-radius:18px; padding:1.8rem; transition:all 0.28s; position:relative; overflow:hidden; }
+        .feature-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--purple-bright),transparent); opacity:0; transition:opacity 0.3s; }
+        .feature-card:hover { transform:translateY(-5px); box-shadow:0 16px 40px rgba(109,34,204,0.25); border-color:var(--border-bright); background:var(--bg-hover); }
+        .feature-card:hover::after { opacity:1; }
+        .feature-icon { width:52px; height:52px; background:rgba(155,69,245,0.12); border-radius:13px; display:flex; align-items:center; justify-content:center; margin-bottom:1.3rem; color:var(--purple-bright); font-size:1.3rem; border:1px solid var(--border); transition:all 0.28s; }
+        .feature-card:hover .feature-icon { background:rgba(155,69,245,0.22); border-color:var(--border-bright); box-shadow:0 0 20px rgba(155,69,245,0.3); }
+        .feature-card h3 { font-size:1.2rem; font-weight:700; margin-bottom:0.7rem; color:var(--phantom); letter-spacing:0; }
+        .feature-card p { color:var(--text-dim); font-size:0.9rem; line-height:1.65; }
+
+        /* PRICING */
+        .pricing { padding:6rem 5%; position:relative; z-index:1; }
+        .pricing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:2rem; max-width:900px; margin:3.5rem auto 0; }
+        .pricing-card { background:var(--bg-card); border:1px solid var(--border); border-radius:22px; padding:2.8rem; text-align:center; transition:all 0.3s; position:relative; overflow:hidden; }
+        .pricing-card.popular { border-color:var(--purple-bright); box-shadow:0 0 50px rgba(155,69,245,0.2),inset 0 0 60px rgba(109,34,204,0.05); }
+        .pricing-card.popular::before { content:''; position:absolute; top:-1px; left:10%; right:10%; height:2px; background:linear-gradient(90deg,transparent,var(--purple-bright),transparent); }
+        .popular-badge { position:absolute; top:0; right:2rem; background:linear-gradient(135deg,var(--purple-deep),var(--purple)); color:#fff; padding:0.45rem 1.3rem; border-bottom-left-radius:10px; border-bottom-right-radius:10px; font-weight:700; font-size:0.8rem; letter-spacing:0.04em; box-shadow:0 4px 16px rgba(109,34,204,0.4); }
+        .pricing-card:hover { transform:translateY(-8px); }
+        .pricing-icon { width:72px; height:72px; background:rgba(155,69,245,0.12); border:1px solid var(--border); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1.5rem; color:var(--purple-bright); font-size:1.8rem; }
+        .pricing-card h3 { font-size:1.6rem; font-weight:800; margin-bottom:0.5rem; letter-spacing:0; }
+        .price { font-size:3.2rem; font-weight:800; margin:1.3rem 0; background:linear-gradient(135deg,var(--violet),var(--purple-bright)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; letter-spacing:0; }
+        .price span { font-size:1rem; color:var(--text-muted); -webkit-text-fill-color:var(--text-muted); }
+        .pricing-features { list-style:none; margin:1.8rem 0; text-align:left; }
+        .pricing-features li { padding:0.7rem 0; color:var(--text-dim); border-bottom:1px solid var(--border); display:flex; align-items:center; gap:0.7rem; font-size:0.92rem; }
+        .pricing-features li:last-child { border-bottom:none; }
+        .pricing-features li i { color:var(--success); font-size:0.85rem; }
+        .pricing-card .btn { width:100%; justify-content:center; margin-top:1.5rem; }
+
+        /* TESTIMONIALS */
+        .testimonials { padding:6rem 5%; background:rgba(11,7,32,0.6); position:relative; z-index:1; }
+        .testimonials-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem; max-width:1200px; margin:3.5rem auto 0; }
+        .testimonial-card { background:var(--bg-card); border:1px solid var(--border); border-radius:18px; padding:1.8rem; transition:all 0.28s; }
+        .testimonial-card:hover { transform:translateY(-4px); box-shadow:0 14px 30px rgba(109,34,204,0.2); border-color:var(--border-bright); }
+        .testimonial-header { display:flex; align-items:center; gap:1rem; margin-bottom:1.2rem; }
+        .testimonial-avatar { width:46px; height:46px; border-radius:50%; background:linear-gradient(135deg,var(--purple-deep),var(--purple)); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.1rem; border:1px solid var(--border-bright); box-shadow:0 0 12px rgba(155,69,245,0.3); flex-shrink:0; }
+        .testimonial-info h4 { font-size:1rem; font-weight:700; margin-bottom:0.2rem; }
+        .testimonial-rating { color:#f59e0b; font-size:0.82rem; margin-bottom:0.15rem; }
+        .testimonial-date { font-size:0.78rem; color:var(--text-muted); }
+        .testimonial-text { color:var(--text-dim); font-size:0.9rem; line-height:1.65; }
+
+        /* UPDATES */
+        .updates { padding:6rem 5%; position:relative; z-index:1; }
+        .updates-timeline { max-width:780px; margin:3.5rem auto 0; position:relative; }
+        .updates-timeline::before { content:''; position:absolute; left:30px; top:0; bottom:0; width:1px; background:linear-gradient(180deg,transparent,var(--purple),transparent); }
+        .update-item { display:flex; margin-bottom:2.5rem; position:relative; }
+        .update-date { width:60px; text-align:center; margin-right:2rem; flex-shrink:0; }
+        .update-badge { width:60px; height:60px; background:linear-gradient(135deg,var(--purple-deep),var(--purple)); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.15rem; color:#fff; position:relative; z-index:1; box-shadow:0 0 20px rgba(155,69,245,0.4); }
+        .update-content { background:var(--bg-card); border:1px solid var(--border); border-radius:14px; padding:1.5rem; flex-grow:1; transition:all 0.28s; }
+        .update-content:hover { transform:translateX(5px); box-shadow:0 8px 24px rgba(109,34,204,0.2); border-color:var(--border-bright); }
+        .update-content h4 { font-size:1.15rem; font-weight:700; margin-bottom:0.5rem; color:var(--purple-bright); }
+        .update-tag { display:inline-block; padding:0.22rem 0.7rem; background:rgba(155,69,245,0.1); border:1px solid rgba(155,69,245,0.3); border-radius:20px; font-size:0.72rem; color:var(--purple-bright); font-weight:700; margin-bottom:0.8rem; letter-spacing:0.06em; text-transform:uppercase; }
+        .update-text { color:var(--text-dim); font-size:0.9rem; line-height:1.65; }
+
+        /* SUPPORT */
+        .support-section { padding:6rem 5%; background:rgba(11,7,32,0.6); position:relative; z-index:1; }
+        .hwid-form { background:var(--bg-card); border:1px solid var(--border); border-radius:20px; padding:2.5rem; max-width:680px; margin:3.5rem auto 0; }
+        .form-group { margin-bottom:1.4rem; }
+        .form-group label { display:block; margin-bottom:0.5rem; color:var(--text); font-weight:600; font-size:0.9rem; }
+        .form-group input,.form-group textarea,.form-group select { width:100%; padding:0.85rem 1rem; background:rgba(109,34,204,0.07); border:1px solid var(--border); border-radius:10px; color:var(--text); font-family:inherit; font-size:0.92rem; transition:all 0.25s; outline:none; }
+        .form-group input:focus,.form-group textarea:focus,.form-group select:focus { border-color:var(--purple-bright); box-shadow:0 0 0 3px rgba(155,69,245,0.12); }
+        .form-group select option { background:var(--bg-1); }
+        .form-note { font-size:0.8rem; color:var(--text-muted); margin-top:0.4rem; }
+        .status-message { padding:1rem; border-radius:10px; margin-bottom:1.4rem; display:none; font-size:0.9rem; }
+        .status-success { background:rgba(52,211,153,0.1); border:1px solid rgba(52,211,153,0.3); color:var(--success); }
+        .status-error { background:rgba(248,113,113,0.1); border:1px solid rgba(248,113,113,0.3); color:var(--error); }
+        .discord-cta { text-align:center; margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid var(--border); color:var(--text-dim); font-size:0.88rem; line-height:1.8; }
+        .discord-cta a { color:var(--purple-bright); text-decoration:none; font-weight:600; transition:color 0.25s; }
+        .discord-cta a:hover { color:var(--violet); }
+
+        /* FOOTER */
+        .footer { padding:4rem 5%; background:rgba(5,3,16,0.9); border-top:1px solid var(--border); position:relative; z-index:1; }
+        .footer-content { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:3rem; }
+        .footer-section h3 { font-size:1.15rem; font-weight:700; margin-bottom:1.3rem; color:var(--phantom); }
+        .footer-section p { color:var(--text-muted); font-size:0.88rem; line-height:1.7; }
+        .footer-links { list-style:none; display:grid; gap:0.55rem; }
+        .footer-links a { color:var(--text-muted); text-decoration:none; font-size:0.88rem; transition:color 0.25s; }
+        .footer-links a:hover { color:var(--purple-bright); }
+        .footer-links li { color:var(--text-muted); font-size:0.88rem; }
+        .social-links { display:flex; gap:0.75rem; margin-top:1.3rem; }
+        .social-links a { width:38px; height:38px; background:var(--bg-card); border:1px solid var(--border); border-radius:10px; display:flex; align-items:center; justify-content:center; color:var(--text-dim); text-decoration:none; transition:all 0.25s; font-size:0.95rem; }
+        .social-links a:hover { background:rgba(155,69,245,0.2); border-color:var(--border-bright); color:var(--purple-bright); transform:translateY(-3px); }
+        .copyright { text-align:center; margin-top:3.5rem; padding-top:2rem; border-top:1px solid var(--border); color:var(--text-muted); font-size:0.82rem; line-height:1.8; }
+
+        /* MODAL */
+        .modal { display:none; position:fixed; inset:0; background:rgba(5,3,16,0.85); backdrop-filter:blur(12px); z-index:10000; align-items:center; justify-content:center; padding:1rem; }
+        .modal-content { background:var(--bg-1); border:1px solid var(--border-bright); border-radius:22px; padding:2.8rem; max-width:500px; width:100%; position:relative; animation:modalIn 0.3s cubic-bezier(0.34,1.56,0.64,1); box-shadow:0 0 60px rgba(109,34,204,0.35); }
+        @keyframes modalIn { from{opacity:0;transform:translateY(-20px) scale(0.95)} to{opacity:1;transform:translateY(0) scale(1)} }
+        .close-modal { position:absolute; top:1.2rem; right:1.2rem; background:rgba(109,34,204,0.1); border:1px solid var(--border); border-radius:8px; color:var(--text-dim); width:32px; height:32px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.25s; }
+        .close-modal:hover { border-color:var(--border-bright); color:var(--purple-bright); }
+        .modal h3 { font-family:'Trebuchet MS','Century Gothic',Verdana,sans-serif; font-size:1.8rem; font-weight:800; margin-bottom:0.7rem; letter-spacing:0; }
+        .modal p { color:var(--text-dim); margin-bottom:1.5rem; font-size:0.92rem; }
+        .modal-info-box { background:rgba(155,69,245,0.08); border:1px solid rgba(155,69,245,0.25); border-radius:12px; padding:1.3rem; margin-bottom:1.8rem; }
+        .modal-info-box h4 { font-family:'Trebuchet MS','Century Gothic',Verdana,sans-serif; color:var(--purple-bright); margin-bottom:0.6rem; font-size:0.95rem; }
+        .modal-info-box p { color:var(--text-dim); font-size:0.85rem; line-height:1.8; margin:0; }
+        .modal .btn { width:100%; justify-content:center; }
+
+        /* FADE */
+        .fade-in { opacity:0; transform:translateY(24px); transition:opacity 0.55s,transform 0.55s; }
+        .fade-in.visible { opacity:1; transform:translateY(0); }
+
+        /* RESPONSIVE */
+        @media(max-width:992px) { .nav-links{display:none} .mobile-menu-btn{display:block} .hero-stats{gap:2rem} .stat::after{display:none} }
+        @media(max-width:768px) { .hero{padding:7rem 5% 3rem} .hero-buttons{flex-direction:column;align-items:center} .btn{width:100%;max-width:300px;justify-content:center} .features-grid{grid-template-columns:1fr} .modal-content{padding:2rem 1.4rem} .bypasses-grid{grid-template-columns:repeat(2,1fr)} }
+        @media(max-width:480px) { .bypasses-grid{grid-template-columns:1fr 1fr} }
     </style>
 </head>
 <body>
-    <div class="phantom-bg"></div>
-    <div class="grid-lines"></div>
+<div class="phantom-bg"></div>
+<div class="grid-lines"></div>
 
-    <nav>
-        <a href="#" class="logo">
-            <img src="https://i.imgur.com/Adzf2yf.png" alt="Vanilla Client Logo">
-            Vanilla Client
-        </a>
+<nav>
+    <a href="#" class="logo">
+        <img src="https://i.imgur.com/Adzf2yf.png" alt="Vanilla Client Logo">
+        Vanilla Client
+    </a>
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#features">Modules</a></li>
+        <li><a href="#bypasses">Bypasses</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#updates">Updates</a></li>
+        <li><a href="https://discord.gg/SStj47mYA7" target="_blank">Discord</a></li>
+    </ul>
+    <div class="user-counter">
+        <i class="fas fa-circle" style="color:var(--success);font-size:0.6rem;"></i>
+        <span class="live-counter" id="liveUserCount">5,287</span> online
+    </div>
+    <button class="nav-cta" id="purchaseBtn">Purchase</button>
+    <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+</nav>
 
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#features">Modules</a></li>
-            <li><a href="#bypasses">Bypasses</a></li>
-            <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#testimonials">Reviews</a></li>
-            <li><a href="#updates">Updates</a></li>
-            <li><a href="https://discord.gg/SStj47mYA7" target="_blank">Discord</a></li>
-        </ul>
-
-        <div class="user-counter">
-            <i class="fas fa-circle" style="color: var(--success); font-size: 0.6rem;"></i>
-            <span class="live-counter" id="liveUserCount">5,287</span> online
+<section class="hero" id="home">
+    <div class="beta-badge">BETA v1.2.1</div>
+    <div class="hero-content">
+        <div class="hero-badge"><div class="badge-pulse"></div>Premium Utility Mod &nbsp;·&nbsp; 1 Month Development</div>
+        <h1>Vanilla Client</h1>
+        <p class="hero-subtitle">19 powerful modules with anti-cheat bypasses for Minecraft 1.21.5. Enhanced combat, utility, and quality-of-life features built for dominance.</p>
+        <div class="hero-stats">
+            <div class="stat"><div class="stat-value">19</div><div class="stat-label">Modules</div></div>
+            <div class="stat"><div class="stat-value">7</div><div class="stat-label">AC Bypasses</div></div>
+            <div class="stat"><div class="stat-value">1.21.5<span class="version-badge">Latest</span></div><div class="stat-label">Minecraft</div></div>
         </div>
-
-        <button class="nav-cta" id="purchaseBtn">Purchase</button>
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
-            <i class="fas fa-bars"></i>
-        </button>
-    </nav>
-
-    <section class="hero" id="home">
-        <div class="beta-badge">BETA v1.2.1</div>
-        <div class="hero-content">
-            <div class="hero-badge">
-                <div class="badge-pulse"></div>
-                Premium Utility Mod &nbsp;·&nbsp; 1 Month Development
-            </div>
-
-            <h1>Vanilla Client</h1>
-            <p class="hero-subtitle">19 powerful modules with anti-cheat bypasses for Minecraft 1.21.5. Enhanced combat, utility, and quality-of-life features built for dominance.</p>
-
-            <div class="hero-stats">
-                <div class="stat">
-                    <div class="stat-value">19</div>
-                    <div class="stat-label">Modules</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">7</div>
-                    <div class="stat-label">AC Bypasses</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">1.21.5<span class="version-badge">Latest</span></div>
-                    <div class="stat-label">Minecraft</div>
-                </div>
-            </div>
-
-            <div class="guarantee-badge">
-                <i class="fas fa-shield-halved"></i>
-                24-Hour Money Back Guarantee &nbsp;·&nbsp; No Data Collection
-            </div>
-
-            <div class="hero-buttons">
-                <a href="#features" class="btn btn-primary">
-                    <i class="fas fa-cube"></i>
-                    View All Modules
-                </a>
-                <button class="btn btn-secondary" id="purchaseBtn2">
-                    <i class="fas fa-cart-shopping"></i>
-                    Purchase Now
-                </button>
-                <a href="#hwid-reset" class="btn btn-secondary">
-                    <i class="fas fa-rotate"></i>
-                    HWID Reset
-                </a>
-            </div>
+        <div class="guarantee-badge">
+            <i class="fas fa-shield-halved"></i>
+            24-Hour Money Back Guarantee &nbsp;·&nbsp; No Data Collection
         </div>
-    </section>
-
-    <section class="bypasses-section section-z" id="bypasses">
-        <div class="section-header">
-            <div class="section-label">Anti-Cheat</div>
-            <h2>Bypass Support</h2>
-            <p class="section-subtitle">Finely tuned modules that evade modern anti-cheat systems across the most popular competitive servers.</p>
-        </div>
-
-        <div class="bypasses-grid">
-            <div class="bypass-card fade-in">
-                <div class="bypass-icon-wrap">
-                    <img src="https://media.forgecdn.net/avatars/797/678/638158965365230959.png" alt="GrimAC">
-                </div>
-                <div class="bypass-name">GrimAC</div>
-                <div class="bypass-status">Bypassed</div>
-            </div>
-            <div class="bypass-card fade-in">
-                <div class="bypass-icon-wrap">
-                    <img src="https://i.imgur.com/wRFRtsR.png" alt="Vulcan">
-                </div>
-                <div class="bypass-name">Vulcan</div>
-                <div class="bypass-status">Bypassed</div>
-            </div>
-            <div class="bypass-card fade-in">
-                <div class="bypass-icon-wrap">
-                    <img src="https://cdn.builtbybit.com/avatars/h/234/234995.jpg?1664995067" alt="Polar">
-                </div>
-                <div class="bypass-name">Polar</div>
-                <div class="bypass-status">Bypassed</div>
-            </div>
-            <div class="bypass-card fade-in">
-                <div class="bypass-icon-wrap">
-                    <img src="https://app-beta.intave.ac/assets/intave_logo.png" alt="Intave">
-                </div>
-                <div class="bypass-name">Intave</div>
-                <div class="bypass-status">Bypassed</div>
-            </div>
-            <div class="bypass-card fade-in">
-                <div class="bypass-icon-wrap">
-                    <img src="https://i.imgur.com/GyOGwgD.png" alt="Matrix">
-                </div>
-                <div class="bypass-name">Matrix</div>
-                <div class="bypass-status">Bypassed</div>
-            </div>
-            <div class="bypass-card fade-in">
-                <div class="bypass-icon-wrap">
-                    <img src="https://avatars.githubusercontent.com/u/63469405?s=200&v=4" alt="NCP">
-                </div>
-                <div class="bypass-name">NCP</div>
-                <div class="bypass-status">Bypassed</div>
-            </div>
-            <div class="bypass-card fade-in">
-                <div class="bypass-icon-wrap">
-                    <img src="https://pbs.twimg.com/profile_images/1076979956654182400/yzYDhCr4_400x400.jpg" alt="Verus">
-                </div>
-                <div class="bypass-name">Verus</div>
-                <div class="bypass-status">Bypassed</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="features section-z" id="features">
-        <div class="section-header">
-            <div class="section-label">Modules</div>
-            <h2>19 Premium Modules</h2>
-            <p class="section-subtitle">Each module includes multiple modes and anti-cheat bypasses for optimal performance.</p>
-        </div>
-
-        <div class="features-grid">
-            <div class="feature-card fade-in">
-                <div class="feature-icon"><i class="fas fa-crosshairs"></i></div>
-                <h3>KillAura</h3>
-                <p>Auto-attacks entities with AC bypasses (Grim, Vulcan, Polar, Matrix). Features silent aim, entity filters, and customizable CPS.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
-                <h3>Criticals</h3>
-                <p>Forces critical hits with Normal, Blatant, and Smooth modes. Works with normal attacks and KillAura integration.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon"><i class="fas fa-hand-fist"></i></div>
-                <h3>HitRegistration</h3>
-                <p>Improves hit registration by sending movement packets. Multiple modes for different anti-cheat systems.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon"><i class="fas fa-arrows-left-right"></i></div>
-                <h3>Reach</h3>
-                <p>Extends attack and block range with AC bypasses (Grim, Vulcan, Polar, Matrix). Separate settings for entities and blocks.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
-                <h3>ShieldStun</h3>
-                <p>Automatically breaks enemy shields with axe switching. Normal, Blatant, and Smooth modes for different situations.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon"><i class="fas fa-computer-mouse"></i></div>
-                <h3>TriggerBot</h3>
-                <p>Automatically attacks when crosshair is on enemy. Configurable delay and multiple operation modes.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon"><i class="fas fa-wind"></i></div>
-                <h3>Velocity</h3>
-                <p>Reduces knockback taken with horizontal and vertical reduction settings. Multiple modes for different anti-cheats.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon"><i class="fas fa-eye-slash"></i></div>
-                <h3>AntiInvis</h3>
-                <p>Shows invisible players through rendering modifications. Works on all entities with invisible effect.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon"><i class="fas fa-spider"></i></div>
-                <h3>AntiWeb</h3>
-                <p>Allows attacking through cobwebs without slowdown. Removes web movement penalties for combat advantage.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon"><i class="fas fa-heart-pulse"></i></div>
-                <h3>AutoTotemOffHand</h3>
-                <p>Auto switches to totem when health drops below threshold. Multiple modes for different response times.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon"><i class="fas fa-cape"></i></div>
-                <h3>Capes</h3>
-                <p>Custom player capes with multiple designs. Vanilla Client and 648k styles available.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon"><i class="fas fa-skull-crossbones"></i></div>
-                <h3>DeathFind</h3>
-                <p>Sends death coordinates in chat after respawning. Never lose your items again with automatic tracking.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon"><i class="fas fa-cloud-bolt"></i></div>
-                <h3>MaceCloud</h3>
-                <p>Simulates fall for mace damage calculation. Multiple modes with configurable fall height.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon"><i class="fas fa-user-shield"></i></div>
-                <h3>NameProtect</h3>
-                <p>Hides your real name in chat with custom replacement. Pink color option and random name generation.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon"><i class="fas fa-person-falling"></i></div>
-                <h3>NetherTrident</h3>
-                <p>Allows trident use in lava environments. Works with Riptide enchantment in nether dimensions.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon"><i class="fas fa-hammer"></i></div>
-                <h3>PacketMiner</h3>
-                <p>Mines blocks faster using packet manipulation. Configurable speed with multiple bypass modes.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon"><i class="fas fa-anchor"></i></div>
-                <h3>SafeAnchor</h3>
-                <p>Places and charges respawn anchors on right click. Automatic glowstone placement for safe charging.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon"><i class="fas fa-cube"></i></div>
-                <h3>AsianJeff</h3>
-                <p>Traps players with obsidian after attacking. Automatic positioning and block placement.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon"><i class="fas fa-door-open"></i></div>
-                <h3>AutoNether</h3>
-                <p>Removes nether portal cooldown for instant travel. No waiting between portal uses.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="testimonials section-z" id="testimonials">
-        <div class="section-header">
-            <div class="section-label">Reviews</div>
-            <h2>What Users Say</h2>
-            <p class="section-subtitle">Real feedback from Vanilla Client users.</p>
-        </div>
-
-        <div class="testimonials-grid">
-            <div class="testimonial-card fade-in">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">C</div>
-                    <div class="testimonial-info">
-                        <h4>ctrlseek</h4>
-                        <div class="testimonial-rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> 4.5
-                        </div>
-                        <div class="testimonial-date">4 hours ago</div>
-                    </div>
-                </div>
-                <p class="testimonial-text">"+vouch @648k thought he was a skid at first (still is) but he knows what hes doing, i seen the tbot. very good."</p>
-            </div>
-            <div class="testimonial-card fade-in">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">I</div>
-                    <div class="testimonial-info">
-                        <h4>Ilikemilk</h4>
-                        <div class="testimonial-rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 4.0
-                        </div>
-                        <div class="testimonial-date">1 day ago</div>
-                    </div>
-                </div>
-                <p class="testimonial-text">"I bought lifetime and client is amazing I loved it thank you."</p>
-            </div>
-            <div class="testimonial-card fade-in">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">V</div>
-                    <div class="testimonial-info">
-                        <h4>Vortex</h4>
-                        <div class="testimonial-rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> 4.0
-                        </div>
-                        <div class="testimonial-date">3 days ago</div>
-                    </div>
-                </div>
-                <p class="testimonial-text">"MaceCloud module is game-changing for bedwars. The smooth mode feels completely legit. Only complaint is the lack of documentation, but Discord support helps."</p>
-            </div>
-            <div class="testimonial-card fade-in">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">E</div>
-                    <div class="testimonial-info">
-                        <h4>Eclipse</h4>
-                        <div class="testimonial-rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 5.0
-                        </div>
-                        <div class="testimonial-date">2 weeks ago</div>
-                    </div>
-                </div>
-                <p class="testimonial-text">"After trying 3 other clients, this is the only one that doesn't get detected on the servers I play. The 1-month development time is impressive for what you get."</p>
-            </div>
-            <div class="testimonial-card fade-in">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">Z</div>
-                    <div class="testimonial-info">
-                        <h4>Zephyr</h4>
-                        <div class="testimonial-rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> 4.5
-                        </div>
-                        <div class="testimonial-date">5 days ago</div>
-                    </div>
-                </div>
-                <p class="testimonial-text">"The anti-cheat bypasses are actually updated. Most clients claim they work but don't. Vanilla Client delivers. UI is basic but functional."</p>
-            </div>
-            <div class="testimonial-card fade-in">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">R</div>
-                    <div class="testimonial-info">
-                        <h4>Raven</h4>
-                        <div class="testimonial-rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> 4.0
-                        </div>
-                        <div class="testimonial-date">1 week ago</div>
-                    </div>
-                </div>
-                <p class="testimonial-text">"Good value for money. The lifetime option at $10 is a steal. Some modules feel unfinished but they work. Hope to see more updates soon."</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="updates section-z" id="updates">
-        <div class="section-header">
-            <div class="section-label">Changelog</div>
-            <h2>Latest Updates</h2>
-            <p class="section-subtitle">Recent improvements and new features added to Vanilla Client.</p>
-        </div>
-
-        <div class="updates-timeline">
-            <div class="update-item fade-in">
-                <div class="update-date">
-                    <div class="update-badge"><i class="fas fa-bolt"></i></div>
-                </div>
-                <div class="update-content">
-                    <span class="update-tag">New Module</span>
-                    <h4>Reach Module Enhanced</h4>
-                    <p class="update-text">Added Grim, Vulcan, Polar, and Matrix bypasses to the Reach module. Now includes separate block and entity range settings with improved detection avoidance. Currently in beta testing phase.</p>
-                </div>
-            </div>
-            <div class="update-item fade-in">
-                <div class="update-date">
-                    <div class="update-badge"><i class="fas fa-shield-halved"></i></div>
-                </div>
-                <div class="update-content">
-                    <span class="update-tag">Security</span>
-                    <h4>Improved Bypass Methods</h4>
-                    <p class="update-text">Updated all anti-cheat bypass methods to be more reliable. KillAura now includes additional checks to avoid detection on Grim AC. Velocity module received optimization for better performance.</p>
-                </div>
-            </div>
-            <div class="update-item fade-in">
-                <div class="update-date">
-                    <div class="update-badge"><i class="fas fa-screwdriver-wrench"></i></div>
-                </div>
-                <div class="update-content">
-                    <span class="update-tag">Optimization</span>
-                    <h4>Performance Improvements</h4>
-                    <p class="update-text">Reduced client-side lag when multiple modules are active. Optimized packet handling for better server-side performance. Memory usage decreased by approximately 15% across all modules.</p>
-                </div>
-            </div>
-            <div class="update-item fade-in">
-                <div class="update-date">
-                    <div class="update-badge"><i class="fas fa-gamepad"></i></div>
-                </div>
-                <div class="update-content">
-                    <span class="update-tag">Compatibility</span>
-                    <h4>Minecraft 1.21.5 Support</h4>
-                    <p class="update-text">Full compatibility with Minecraft 1.21.5. All modules tested and working on the latest version. Added support for new game mechanics introduced in the update.</p>
-                </div>
-            </div>
-            <div class="update-item fade-in">
-                <div class="update-date">
-                    <div class="update-badge"><i class="fas fa-bug"></i></div>
-                </div>
-                <div class="update-content">
-                    <span class="update-tag">Bug Fixes</span>
-                    <h4>Stability Update</h4>
-                    <p class="update-text">Fixed issue where MaceCloud would occasionally cause disconnects. Resolved NullPointerException in AsianJeff module. TriggerBot delay setting now works correctly with all modes.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="pricing section-z" id="pricing">
-        <div class="section-header">
-            <div class="section-label">Pricing</div>
-            <h2>Choose Your Plan</h2>
-            <p class="section-subtitle">Manual purchase via Discord. Join our server and DM for purchase instructions.</p>
-        </div>
-
-        <div class="pricing-grid">
-            <div class="pricing-card fade-in">
-                <div class="pricing-icon"><i class="fas fa-calendar-alt"></i></div>
-                <h3>Monthly Plan</h3>
-                <div class="price">$5<span>/month</span></div>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Perfect for trying out the mod or short-term use</p>
-                <ul class="pricing-features">
-                    <li><i class="fas fa-check"></i> All 19 Modules</li>
-                    <li><i class="fas fa-check"></i> Regular Updates</li>
-                    <li><i class="fas fa-check"></i> Discord Support</li>
-                    <li><i class="fas fa-check"></i> 7 AC Bypasses</li>
-                    <li><i class="fas fa-check"></i> 1 HWID Reset</li>
-                </ul>
-                <button class="btn btn-secondary purchase-monthly" style="width: 100%; justify-content: center;">
-                    <i class="fas fa-cart-shopping"></i> Purchase Monthly
-                </button>
-            </div>
-
-            <div class="pricing-card popular fade-in">
-                <div class="popular-badge">Most Popular</div>
-                <div class="pricing-icon"><i class="fas fa-gem"></i></div>
-                <h3>Lifetime Plan</h3>
-                <div class="price">$10<span>/lifetime</span></div>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">One-time payment for permanent access</p>
-                <ul class="pricing-features">
-                    <li><i class="fas fa-check"></i> All 19 Modules</li>
-                    <li><i class="fas fa-check"></i> Lifetime Updates</li>
-                    <li><i class="fas fa-check"></i> Priority Support</li>
-                    <li><i class="fas fa-check"></i> VIP Discord Role</li>
-                    <li><i class="fas fa-check"></i> Beta Access</li>
-                    <li><i class="fas fa-check"></i> 3 HWID Resets</li>
-                </ul>
-                <button class="btn btn-primary purchase-lifetime" style="width: 100%; justify-content: center;">
-                    <i class="fas fa-crown"></i> Purchase Lifetime
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <section class="support-section section-z" id="hwid-reset">
-        <div class="section-header">
-            <div class="section-label">Support</div>
-            <h2>HWID Reset Portal</h2>
-            <p class="section-subtitle">Request a Hardware ID reset if you've changed your computer.</p>
-        </div>
-
-        <div class="hwid-form">
-            <div id="statusMessage" class="status-message"></div>
-
-            <div class="form-group">
-                <label for="resetDiscordId">Your Discord ID *</label>
-                <input type="text" id="resetDiscordId" placeholder="Username#0000" required>
-                <p class="form-note">Exactly as it appears in Discord</p>
-            </div>
-
-            <div class="form-group">
-                <label for="resetReason">Reason for Reset *</label>
-                <select id="resetReason" required>
-                    <option value="">Select a reason</option>
-                    <option value="hardware_change">Changed computer hardware</option>
-                    <option value="new_pc">Got a new PC</option>
-                    <option value="motherboard">Motherboard replacement</option>
-                    <option value="other">Other (explain below)</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="resetDetails">Additional Details</label>
-                <textarea id="resetDetails" rows="3" placeholder="Provide any additional information that might help..."></textarea>
-                <p class="form-note">Monthly plans: 1 reset allowed. Lifetime: 3 resets allowed.</p>
-            </div>
-
-            <button class="btn btn-primary" id="submitResetRequest">
-                <i class="fas fa-paper-plane"></i>
-                Submit Reset Request
-            </button>
-
-            <div class="discord-cta">
-                <p>All reset requests are processed manually within 24-48 hours via Discord.</p>
-                <p><a href="https://discord.gg/SStj47mYA7" target="_blank"><i class="fab fa-discord"></i> Join Discord for Support</a></p>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Vanilla Client</h3>
-                <p>A premium Minecraft utility mod developed in 1 month. Currently in BETA with active development for Minecraft 1.21.5.</p>
-                <div class="social-links">
-                    <a href="https://discord.gg/SStj47mYA7" target="_blank">
-                        <i class="fab fa-discord"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul class="footer-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#features">Modules</a></li>
-                    <li><a href="#bypasses">Bypasses</a></li>
-                    <li><a href="#testimonials">Reviews</a></li>
-                    <li><a href="#updates">Updates</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#hwid-reset">HWID Reset</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Purchase Info</h3>
-                <ul class="footer-links">
-                    <li>Monthly: $5/month</li>
-                    <li>Lifetime: $10 (one-time)</li>
-                    <li>Payment: CashApp Only</li>
-                    <li>24-Hour Money Back</li>
-                    <li>No Data Collection</li>
-                    <li><a href="https://discord.gg/SStj47mYA7" target="_blank">Join Discord to Buy</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Compatibility</h3>
-                <ul class="footer-links">
-                    <li>Minecraft 1.21.5</li>
-                    <li>Windows 10/11</li>
-                    <li>Java 17+</li>
-                    <li>4GB RAM Minimum</li>
-                    <li>BETA Phase</li>
-                    <li>Active Development</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="copyright">
-            <p>&copy; 2023 Vanilla Client. All rights reserved. Minecraft is a trademark of Mojang AB. Not affiliated with Mojang or Microsoft.</p>
-            <p style="margin-top: 0.4rem; font-size: 0.78rem;">BETA Version &nbsp;·&nbsp; Developed in 1 Month &nbsp;·&nbsp; Active Development &nbsp;·&nbsp; No Data Collection Policy</p>
-        </div>
-    </footer>
-
-    <div class="modal" id="paymentModal">
-        <div class="modal-content">
-            <button class="close-modal" id="closeModal">
-                <i class="fas fa-times"></i>
-            </button>
-
-            <h3 id="modalTitle">Purchase Vanilla Client</h3>
-            <p id="modalDescription">Manual purchase process via Discord. No automatic payments.</p>
-
-            <div class="modal-info-box">
-                <h4><i class="fas fa-circle-info"></i> Purchase Instructions</h4>
-                <p>
-                    1. Join our Discord server using the link below<br>
-                    2. DM the owner or a staff member<br>
-                    3. Provide your Discord ID and desired plan<br>
-                    4. Send payment via CashApp<br>
-                    5. Receive your license key within 24 hours<br>
-                    6. 24-hour money back guarantee applies
-                </p>
-            </div>
-
-            <div class="form-group">
-                <label for="discordId">Your Discord ID</label>
-                <input type="text" id="discordId" placeholder="Your Discord Username#0000" readonly style="opacity: 0.6; cursor: default;">
-            </div>
-
-            <div class="form-group">
-                <label for="planType">Selected Plan</label>
-                <input type="text" id="planType" readonly style="opacity: 0.6; cursor: default;">
-            </div>
-
-            <a href="https://discord.gg/SStj47mYA7" target="_blank" class="btn btn-primary" id="joinDiscordBtn">
-                <i class="fab fa-discord"></i>
-                Join Discord Server
-            </a>
-
-            <div class="discord-cta">
-                <p>After joining, DM <strong>@Owner</strong> or <strong>@Staff</strong> with your Discord ID and selected plan.</p>
-                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
-                    <i class="fas fa-triangle-exclamation"></i> BETA product. Developed in 1 month. Active updates. 24-hour money back guarantee.
-                </p>
-            </div>
+        <div class="hero-buttons">
+            <a href="#features" class="btn btn-primary"><i class="fas fa-cube"></i> View All Modules</a>
+            <button class="btn btn-secondary" id="purchaseBtn2"><i class="fas fa-cart-shopping"></i> Purchase Now</button>
+            <a href="#hwid-reset" class="btn btn-secondary"><i class="fas fa-rotate"></i> HWID Reset</a>
         </div>
     </div>
+</section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const purchaseButtons = document.querySelectorAll('.purchase-monthly, .purchase-lifetime, #purchaseBtn, #purchaseBtn2');
-            const paymentModal = document.getElementById('paymentModal');
-            const closeModal = document.getElementById('closeModal');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalDescription = document.getElementById('modalDescription');
-            const planTypeInput = document.getElementById('planType');
-            const discordIdInput = document.getElementById('discordId');
-            const joinDiscordBtn = document.getElementById('joinDiscordBtn');
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navLinks = document.querySelector('.nav-links');
-            const liveUserCount = document.getElementById('liveUserCount');
-            const submitResetBtn = document.getElementById('submitResetRequest');
-            const statusMessage = document.getElementById('statusMessage');
+<section class="bypasses-section section-z" id="bypasses">
+    <div class="section-header">
+        <div class="section-label">Anti-Cheat</div>
+        <h2>Bypass Support</h2>
+        <p class="section-subtitle">Finely tuned modules that evade modern anti-cheat systems across the most popular competitive servers.</p>
+    </div>
+    <div class="bypasses-grid">
+        <div class="bypass-card fade-in"><div class="bypass-icon-wrap"><img src="https://media.forgecdn.net/avatars/797/678/638158965365230959.png" alt="GrimAC" onerror="this.style.display='none'"></div><div class="bypass-name">GrimAC</div><div class="bypass-status">Bypassed</div></div>
+        <div class="bypass-card fade-in"><div class="bypass-icon-wrap"><img src="https://i.imgur.com/wRFRtsR.png" alt="Vulcan" onerror="this.style.display='none'"></div><div class="bypass-name">Vulcan</div><div class="bypass-status">Bypassed</div></div>
+        <div class="bypass-card fade-in"><div class="bypass-icon-wrap"><img src="https://cdn.builtbybit.com/avatars/h/234/234995.jpg?1664995067" alt="Polar" onerror="this.style.display='none'"></div><div class="bypass-name">Polar</div><div class="bypass-status">Bypassed</div></div>
+        <div class="bypass-card fade-in"><div class="bypass-icon-wrap"><img src="https://app-beta.intave.ac/assets/intave_logo.png" alt="Intave" onerror="this.style.display='none'"></div><div class="bypass-name">Intave</div><div class="bypass-status">Bypassed</div></div>
+        <div class="bypass-card fade-in"><div class="bypass-icon-wrap"><img src="https://i.imgur.com/GyOGwgD.png" alt="Matrix" onerror="this.style.display='none'"></div><div class="bypass-name">Matrix</div><div class="bypass-status">Bypassed</div></div>
+        <div class="bypass-card fade-in"><div class="bypass-icon-wrap"><img src="https://avatars.githubusercontent.com/u/63469405?s=200&v=4" alt="NCP" onerror="this.style.display='none'"></div><div class="bypass-name">NCP</div><div class="bypass-status">Bypassed</div></div>
+        <div class="bypass-card fade-in"><div class="bypass-icon-wrap"><img src="https://pbs.twimg.com/profile_images/1076979956654182400/yzYDhCr4_400x400.jpg" alt="Verus" onerror="this.style.display='none'"></div><div class="bypass-name">Verus</div><div class="bypass-status">Bypassed</div></div>
+    </div>
+</section>
 
-            let selectedPlan = '';
-            let userCount = 5287;
+<section class="features section-z" id="features">
+    <div class="section-header">
+        <div class="section-label">Modules</div>
+        <h2>19 Premium Modules</h2>
+        <p class="section-subtitle">Each module includes multiple modes and anti-cheat bypasses for optimal performance.</p>
+    </div>
+    <div class="features-grid">
+        <div class="feature-card fade-in"><div class="feature-icon"><i class="fas fa-crosshairs"></i></div><h3>KillAura</h3><p>Auto-attacks entities with AC bypasses (Grim, Vulcan, Polar, Matrix). Features silent aim, entity filters, and customizable CPS.</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><i class="fas fa-bullseye"></i></div><h3>Criticals</h3><p>Forces critical hits with Normal, Blatant, and Smooth modes. Works with normal attacks and KillAura integration.</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><i class="fas fa-hand-fist"></i></div><h3>HitRegistration</h3><p>Improves hit registration by sending movement packets. Multiple modes for different anti-cheat systems.</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><i class="fas fa-arrows-left-right"></i></div><h3>Reach</h3><p>Extends attack and block range with AC bypasses (Grim, Vulcan, Polar, Matrix). Separate settings for entities and blocks.</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><i class="fas fa-shield-halved"></i></div><h3>ShieldStun</h3><p>Automatically breaks enemy shields with axe switching. Normal, Blatant, and Smooth modes for different situations.</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><i class="fas fa-computer-mouse"></i></div><h3>TriggerBot</h3><p>Automatically attacks when crosshair is on enemy. Configurable delay and multiple operation modes.</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><i class="fas fa-wind"></i></div><h3>Velocity</h3><p>Reduces knockback taken with horizontal and vertical reduction settings. Multiple modes for different anti-cheats.</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><i class="fas fa-eye-slash"></i></div><h3>AntiInvis</h3><p>Shows invisible players through rendering modifications. Works on all entities with invisible effect.</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><i class="fas fa-spider"></i></div><h3>AntiWeb</h3><p>Allows attacking through cobwebs without slowdown. Removes web movement penalties for combat advantage.</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><i class="fas fa-heart-pulse"></i></div><h3>AutoTotemOffHand</h3><p>Auto switches to totem when health drops below threshold. Multiple modes for different response times.</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><i class="fas fa-user-astronaut"></i></div><h3>Capes</h3><p>Custom player capes with multiple designs. Vanilla Client and 648k styles available.</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><i class="fas fa-skull-crossbones"></i></div><h3>DeathFind</h3><p>Sends death coordinates in chat after respawning. Never lose your items again with automatic tracking.</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><i class="fas fa-cloud-bolt"></i></div><h3>MaceCloud</h3><p>Simulates fall for mace damage calculation. Multiple modes with configurable fall height.</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><i class="fas fa-user-shield"></i></div><h3>NameProtect</h3><p>Hides your real name in chat with custom replacement. Pink color option and random name generation.</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><i class="fas fa-person-falling"></i></div><h3>NetherTrident</h3><p>Allows trident use in lava environments. Works with Riptide enchantment in nether dimensions.</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><i class="fas fa-hammer"></i></div><h3>PacketMiner</h3><p>Mines blocks faster using packet manipulation. Configurable speed with multiple bypass modes.</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><i class="fas fa-anchor"></i></div><h3>SafeAnchor</h3><p>Places and charges respawn anchors on right click. Automatic glowstone placement for safe charging.</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><i class="fas fa-cube"></i></div><h3>AsianJeff</h3><p>Traps players with obsidian after attacking. Automatic positioning and block placement.</p></div>
+        <div class="feature-card fade-in"><div class="feature-icon"><i class="fas fa-door-open"></i></div><h3>AutoNether</h3><p>Removes nether portal cooldown for instant travel. No waiting between portal uses.</p></div>
+    </div>
+</section>
 
-            function updateUserCount() {
-                const change = Math.random() > 0.5 ? 1 : -1;
-                const amount = Math.floor(Math.random() * 5) + 1;
-                userCount += change * amount;
-                if (userCount < 5200) userCount = 5200;
-                if (userCount > 5400) userCount = 5400;
-                liveUserCount.textContent = userCount.toLocaleString();
-                setTimeout(updateUserCount, Math.random() * 5000 + 3000);
-            }
+<section class="testimonials section-z" id="testimonials">
+    <div class="section-header">
+        <div class="section-label">Reviews</div>
+        <h2>What Users Say</h2>
+        <p class="section-subtitle">Real feedback from Vanilla Client users.</p>
+    </div>
+    <div class="testimonials-grid">
+        <div class="testimonial-card fade-in"><div class="testimonial-header"><div class="testimonial-avatar">C</div><div class="testimonial-info"><h4>ctrlseek</h4><div class="testimonial-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> 4.5</div><div class="testimonial-date">4 hours ago</div></div></div><p class="testimonial-text">"+vouch @648k thought he was a skid at first (still is) but he knows what hes doing, i seen the tbot. very good."</p></div>
+        <div class="testimonial-card fade-in"><div class="testimonial-header"><div class="testimonial-avatar">I</div><div class="testimonial-info"><h4>Ilikemilk</h4><div class="testimonial-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 5.0</div><div class="testimonial-date">1 day ago</div></div></div><p class="testimonial-text">"I bought lifetime and client is amazing I loved it thank you."</p></div>
+        <div class="testimonial-card fade-in"><div class="testimonial-header"><div class="testimonial-avatar">V</div><div class="testimonial-info"><h4>Vortex</h4><div class="testimonial-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> 4.0</div><div class="testimonial-date">3 days ago</div></div></div><p class="testimonial-text">"MaceCloud module is game-changing for bedwars. The smooth mode feels completely legit. Only complaint is the lack of documentation, but Discord support helps."</p></div>
+        <div class="testimonial-card fade-in"><div class="testimonial-header"><div class="testimonial-avatar">E</div><div class="testimonial-info"><h4>Eclipse</h4><div class="testimonial-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 5.0</div><div class="testimonial-date">2 weeks ago</div></div></div><p class="testimonial-text">"After trying 3 other clients, this is the only one that doesn't get detected on the servers I play."</p></div>
+        <div class="testimonial-card fade-in"><div class="testimonial-header"><div class="testimonial-avatar">Z</div><div class="testimonial-info"><h4>Zephyr</h4><div class="testimonial-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> 4.5</div><div class="testimonial-date">5 days ago</div></div></div><p class="testimonial-text">"The anti-cheat bypasses are actually updated. Most clients claim they work but don't. Vanilla Client delivers."</p></div>
+        <div class="testimonial-card fade-in"><div class="testimonial-header"><div class="testimonial-avatar">R</div><div class="testimonial-info"><h4>Raven</h4><div class="testimonial-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> 4.0</div><div class="testimonial-date">1 week ago</div></div></div><p class="testimonial-text">"Good value for money. The lifetime option at $10 is a steal. Some modules feel unfinished but they work."</p></div>
+    </div>
+</section>
 
-            updateUserCount();
+<section class="updates section-z" id="updates">
+    <div class="section-header">
+        <div class="section-label">Changelog</div>
+        <h2>Latest Updates</h2>
+        <p class="section-subtitle">Recent improvements and new features added to Vanilla Client.</p>
+    </div>
+    <div class="updates-timeline">
+        <div class="update-item fade-in"><div class="update-date"><div class="update-badge"><i class="fas fa-bolt"></i></div></div><div class="update-content"><span class="update-tag">New Module</span><h4>Reach Module Enhanced</h4><p class="update-text">Added Grim, Vulcan, Polar, and Matrix bypasses to the Reach module. Now includes separate block and entity range settings with improved detection avoidance.</p></div></div>
+        <div class="update-item fade-in"><div class="update-date"><div class="update-badge"><i class="fas fa-shield-halved"></i></div></div><div class="update-content"><span class="update-tag">Security</span><h4>Improved Bypass Methods</h4><p class="update-text">Updated all anti-cheat bypass methods to be more reliable. KillAura now includes additional checks to avoid detection on Grim AC.</p></div></div>
+        <div class="update-item fade-in"><div class="update-date"><div class="update-badge"><i class="fas fa-screwdriver-wrench"></i></div></div><div class="update-content"><span class="update-tag">Optimization</span><h4>Performance Improvements</h4><p class="update-text">Reduced client-side lag when multiple modules are active. Memory usage decreased by approximately 15% across all modules.</p></div></div>
+        <div class="update-item fade-in"><div class="update-date"><div class="update-badge"><i class="fas fa-gamepad"></i></div></div><div class="update-content"><span class="update-tag">Compatibility</span><h4>Minecraft 1.21.5 Support</h4><p class="update-text">Full compatibility with Minecraft 1.21.5. All modules tested and working on the latest version.</p></div></div>
+        <div class="update-item fade-in"><div class="update-date"><div class="update-badge"><i class="fas fa-bug"></i></div></div><div class="update-content"><span class="update-tag">Bug Fixes</span><h4>Stability Update</h4><p class="update-text">Fixed issue where MaceCloud would occasionally cause disconnects. TriggerBot delay setting now works correctly with all modes.</p></div></div>
+    </div>
+</section>
 
-            purchaseButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    if (this.classList.contains('purchase-monthly') || this.textContent.includes('Monthly')) {
-                        selectedPlan = 'monthly';
-                        modalTitle.textContent = 'Purchase Monthly Plan';
-                        modalDescription.textContent = 'Manual purchase process via Discord. No automatic payments.';
-                        planTypeInput.value = 'Monthly Plan - $5/month (1 HWID Reset)';
-                    } else {
-                        selectedPlan = 'lifetime';
-                        modalTitle.textContent = 'Purchase Lifetime Plan';
-                        modalDescription.textContent = 'Manual purchase process via Discord. No automatic payments.';
-                        planTypeInput.value = 'Lifetime Plan - $10 (3 HWID Resets)';
-                    }
-                    discordIdInput.value = 'Provide this when DMing in Discord';
-                    paymentModal.style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
-                });
-            });
+<section class="pricing section-z" id="pricing">
+    <div class="section-header">
+        <div class="section-label">Pricing</div>
+        <h2>Choose Your Plan</h2>
+        <p class="section-subtitle">Manual purchase via Discord. Join our server and DM for purchase instructions.</p>
+    </div>
+    <div class="pricing-grid">
+        <div class="pricing-card fade-in">
+            <div class="pricing-icon"><i class="fas fa-calendar-alt"></i></div>
+            <h3>Monthly Plan</h3>
+            <div class="price">$5<span>/month</span></div>
+            <p style="color:var(--text-muted);font-size:0.9rem;">Perfect for trying out the mod or short-term use</p>
+            <ul class="pricing-features">
+                <li><i class="fas fa-check"></i> All 19 Modules</li>
+                <li><i class="fas fa-check"></i> Regular Updates</li>
+                <li><i class="fas fa-check"></i> Discord Support</li>
+                <li><i class="fas fa-check"></i> 7 AC Bypasses</li>
+                <li><i class="fas fa-check"></i> 1 HWID Reset</li>
+            </ul>
+            <button class="btn btn-secondary purchase-monthly" style="width:100%;justify-content:center;"><i class="fas fa-cart-shopping"></i> Purchase Monthly</button>
+        </div>
+        <div class="pricing-card popular fade-in">
+            <div class="popular-badge">Most Popular</div>
+            <div class="pricing-icon"><i class="fas fa-gem"></i></div>
+            <h3>Lifetime Plan</h3>
+            <div class="price">$10<span>/lifetime</span></div>
+            <p style="color:var(--text-muted);font-size:0.9rem;">One-time payment for permanent access</p>
+            <ul class="pricing-features">
+                <li><i class="fas fa-check"></i> All 19 Modules</li>
+                <li><i class="fas fa-check"></i> Lifetime Updates</li>
+                <li><i class="fas fa-check"></i> Priority Support</li>
+                <li><i class="fas fa-check"></i> VIP Discord Role</li>
+                <li><i class="fas fa-check"></i> Beta Access</li>
+                <li><i class="fas fa-check"></i> 3 HWID Resets</li>
+            </ul>
+            <button class="btn btn-primary purchase-lifetime" style="width:100%;justify-content:center;"><i class="fas fa-crown"></i> Purchase Lifetime</button>
+        </div>
+    </div>
+</section>
 
-            closeModal.addEventListener('click', function() {
-                paymentModal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            });
+<section class="support-section section-z" id="hwid-reset">
+    <div class="section-header">
+        <div class="section-label">Support</div>
+        <h2>HWID Reset Portal</h2>
+        <p class="section-subtitle">Request a Hardware ID reset if you've changed your computer.</p>
+    </div>
+    <div class="hwid-form">
+        <div id="statusMessage" class="status-message"></div>
+        <div class="form-group">
+            <label for="resetDiscordId">Your Discord ID *</label>
+            <input type="text" id="resetDiscordId" placeholder="Username#0000" required>
+            <p class="form-note">Exactly as it appears in Discord</p>
+        </div>
+        <div class="form-group">
+            <label for="resetReason">Reason for Reset *</label>
+            <select id="resetReason" required>
+                <option value="">Select a reason</option>
+                <option value="hardware_change">Changed computer hardware</option>
+                <option value="new_pc">Got a new PC</option>
+                <option value="motherboard">Motherboard replacement</option>
+                <option value="other">Other (explain below)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="resetDetails">Additional Details</label>
+            <textarea id="resetDetails" rows="3" placeholder="Provide any additional information that might help..."></textarea>
+            <p class="form-note">Monthly plans: 1 reset allowed. Lifetime: 3 resets allowed.</p>
+        </div>
+        <button class="btn btn-primary" id="submitResetRequest"><i class="fas fa-paper-plane"></i> Submit Reset Request</button>
+        <div class="discord-cta">
+            <p>All reset requests are processed manually within 24-48 hours via Discord.</p>
+            <p><a href="https://discord.gg/SStj47mYA7" target="_blank"><i class="fab fa-discord"></i> Join Discord for Support</a></p>
+        </div>
+    </div>
+</section>
 
-            paymentModal.addEventListener('click', function(e) {
-                if (e.target === paymentModal) {
-                    paymentModal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }
-            });
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>Vanilla Client</h3>
+            <p>A premium Minecraft utility mod. Currently in BETA with active development for Minecraft 1.21.5.</p>
+            <div class="social-links">
+                <a href="https://discord.gg/SStj47mYA7" target="_blank"><i class="fab fa-discord"></i></a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+                <li><a href="#home">Home</a></li><li><a href="#features">Modules</a></li>
+                <li><a href="#bypasses">Bypasses</a></li><li><a href="#testimonials">Reviews</a></li>
+                <li><a href="#updates">Updates</a></li><li><a href="#pricing">Pricing</a></li>
+                <li><a href="#hwid-reset">HWID Reset</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Purchase Info</h3>
+            <ul class="footer-links">
+                <li>Monthly: $5/month</li><li>Lifetime: $10 (one-time)</li>
+                <li>Payment: CashApp Only</li><li>24-Hour Money Back</li>
+                <li>No Data Collection</li>
+                <li><a href="https://discord.gg/SStj47mYA7" target="_blank">Join Discord to Buy</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Compatibility</h3>
+            <ul class="footer-links">
+                <li>Minecraft 1.21.5</li><li>Windows 10/11</li>
+                <li>Java 17+</li><li>4GB RAM Minimum</li>
+                <li>BETA Phase</li><li>Active Development</li>
+            </ul>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>&copy; 2023 Vanilla Client. All rights reserved. Minecraft is a trademark of Mojang AB. Not affiliated with Mojang or Microsoft.</p>
+        <p style="margin-top:0.4rem;font-size:0.78rem;">BETA Version &nbsp;·&nbsp; Developed in 1 Month &nbsp;·&nbsp; Active Development &nbsp;·&nbsp; No Data Collection Policy</p>
+    </div>
+</footer>
 
-            joinDiscordBtn.addEventListener('click', function() {
-                setTimeout(() => {
-                    paymentModal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }, 1000);
-            });
+<div class="modal" id="paymentModal">
+    <div class="modal-content">
+        <button class="close-modal" id="closeModal"><i class="fas fa-times"></i></button>
+        <h3 id="modalTitle">Purchase Vanilla Client</h3>
+        <p id="modalDescription">Manual purchase process via Discord. No automatic payments.</p>
+        <div class="modal-info-box">
+            <h4><i class="fas fa-circle-info"></i> Purchase Instructions</h4>
+            <p>1. Join our Discord server using the link below<br>2. DM the owner or a staff member<br>3. Provide your Discord ID and desired plan<br>4. Send payment via CashApp<br>5. Receive your license key within 24 hours<br>6. 24-hour money back guarantee applies</p>
+        </div>
+        <div class="form-group">
+            <label for="discordId">Your Discord ID</label>
+            <input type="text" id="discordId" readonly style="opacity:0.6;cursor:default;">
+        </div>
+        <div class="form-group">
+            <label for="planType">Selected Plan</label>
+            <input type="text" id="planType" readonly style="opacity:0.6;cursor:default;">
+        </div>
+        <a href="https://discord.gg/SStj47mYA7" target="_blank" class="btn btn-primary" id="joinDiscordBtn" style="display:flex;width:100%;justify-content:center;">
+            <i class="fab fa-discord"></i> Join Discord Server
+        </a>
+        <div class="discord-cta">
+            <p>After joining, DM <strong>@Owner</strong> or <strong>@Staff</strong> with your Discord ID and selected plan.</p>
+            <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.5rem;"><i class="fas fa-triangle-exclamation"></i> BETA product. 24-hour money back guarantee.</p>
+        </div>
+    </div>
+</div>
 
-            submitResetBtn.addEventListener('click', function() {
-                const discordId = document.getElementById('resetDiscordId').value;
-                const reason = document.getElementById('resetReason').value;
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const purchaseButtons = document.querySelectorAll('.purchase-monthly,.purchase-lifetime,#purchaseBtn,#purchaseBtn2');
+    const paymentModal = document.getElementById('paymentModal');
+    const closeModalBtn = document.getElementById('closeModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const planTypeInput = document.getElementById('planType');
+    const discordIdInput = document.getElementById('discordId');
+    const joinDiscordBtn = document.getElementById('joinDiscordBtn');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.querySelector('.nav-links');
+    const liveUserCount = document.getElementById('liveUserCount');
+    const submitResetBtn = document.getElementById('submitResetRequest');
+    const statusMessage = document.getElementById('statusMessage');
 
-                if (!discordId || !reason) {
-                    showStatus('Please fill in all required fields.', 'error');
-                    return;
-                }
+    let userCount = 5287;
+    function updateUserCount() {
+        userCount += (Math.random() > 0.5 ? 1 : -1) * (Math.floor(Math.random()*5)+1);
+        if (userCount < 5200) userCount = 5200;
+        if (userCount > 5400) userCount = 5400;
+        liveUserCount.textContent = userCount.toLocaleString();
+        setTimeout(updateUserCount, Math.random()*5000+3000);
+    }
+    updateUserCount();
 
-                if (!discordId.includes('#')) {
-                    showStatus('Please enter a valid Discord ID (Username#0000).', 'error');
-                    return;
-                }
-
-                showStatus('HWID reset request submitted successfully. You will be contacted on Discord within 24-48 hours.', 'success');
-
-                setTimeout(() => {
-                    document.getElementById('resetDiscordId').value = '';
-                    document.getElementById('resetReason').value = '';
-                    document.getElementById('resetDetails').value = '';
-                }, 2000);
-            });
-
-            function showStatus(message, type) {
-                statusMessage.textContent = message;
-                statusMessage.className = 'status-message';
-                statusMessage.classList.add('status-' + type);
-                statusMessage.style.display = 'block';
-                setTimeout(() => { statusMessage.style.display = 'none'; }, 5000);
-            }
-
-            mobileMenuBtn.addEventListener('click', function() {
-                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-                navLinks.style.flexDirection = 'column';
-                navLinks.style.position = 'absolute';
-                navLinks.style.top = '100%';
-                navLinks.style.left = '0';
-                navLinks.style.width = '100%';
-                navLinks.style.backgroundColor = 'rgba(5,3,16,0.97)';
-                navLinks.style.padding = '2rem';
-                navLinks.style.gap = '1.5rem';
-                navLinks.style.borderBottom = '1px solid var(--border)';
-            });
-
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 992) {
-                    navLinks.style.cssText = '';
-                } else {
-                    navLinks.style.display = 'none';
-                }
-            });
-
-            document.querySelectorAll('a[href^="#"]').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({ top: targetElement.offsetTop - 80, behavior: 'smooth' });
-                        if (window.innerWidth <= 992) navLinks.style.display = 'none';
-                    }
-                });
-            });
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('visible');
-                });
-            }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-
-            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    purchaseButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const isMonthly = this.classList.contains('purchase-monthly') || this.textContent.includes('Monthly');
+            modalTitle.textContent = isMonthly ? 'Purchase Monthly Plan' : 'Purchase Lifetime Plan';
+            modalDescription.textContent = 'Manual purchase process via Discord. No automatic payments.';
+            planTypeInput.value = isMonthly ? 'Monthly Plan - $5/month (1 HWID Reset)' : 'Lifetime Plan - $10 (3 HWID Resets)';
+            discordIdInput.value = 'Provide this when DMing in Discord';
+            paymentModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         });
-    </script>
+    });
+
+    function closeModal() { paymentModal.style.display = 'none'; document.body.style.overflow = 'auto'; }
+    closeModalBtn.addEventListener('click', closeModal);
+    paymentModal.addEventListener('click', e => { if (e.target === paymentModal) closeModal(); });
+    joinDiscordBtn.addEventListener('click', () => setTimeout(closeModal, 1000));
+
+    submitResetBtn.addEventListener('click', function() {
+        const discordId = document.getElementById('resetDiscordId').value;
+        const reason = document.getElementById('resetReason').value;
+        if (!discordId || !reason) { showStatus('Please fill in all required fields.', 'error'); return; }
+        if (!discordId.includes('#')) { showStatus('Please enter a valid Discord ID (Username#0000).', 'error'); return; }
+        showStatus('HWID reset request submitted successfully. You will be contacted on Discord within 24-48 hours.', 'success');
+        setTimeout(() => { document.getElementById('resetDiscordId').value=''; document.getElementById('resetReason').value=''; document.getElementById('resetDetails').value=''; }, 2000);
+    });
+
+    function showStatus(msg, type) {
+        statusMessage.textContent = msg;
+        statusMessage.className = 'status-message status-' + type;
+        statusMessage.style.display = 'block';
+        setTimeout(() => { statusMessage.style.display = 'none'; }, 5000);
+    }
+
+    mobileMenuBtn.addEventListener('click', function() {
+        const open = navLinks.style.display === 'flex';
+        if (open) { navLinks.style.display = 'none'; return; }
+        Object.assign(navLinks.style, { display:'flex', flexDirection:'column', position:'absolute', top:'100%', left:'0', width:'100%', backgroundColor:'rgba(5,3,16,0.97)', padding:'2rem', gap:'1.5rem', borderBottom:'1px solid rgba(120,60,200,0.3)' });
+    });
+
+    window.addEventListener('resize', () => { if (window.innerWidth > 992) navLinks.style.cssText = ''; else navLinks.style.display = 'none'; });
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const id = this.getAttribute('href');
+            if (id === '#') return;
+            const el = document.querySelector(id);
+            if (el) { window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' }); if (window.innerWidth <= 992) navLinks.style.display = 'none'; }
+        });
+    });
+
+    const observer = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold:0.08, rootMargin:'0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+});
+</script>
 </body>
 </html>
