@@ -54,7 +54,7 @@
             background-size:60px 60px;
         }
 
-        /* NAV */
+        
         nav {
             position:fixed; top:0; width:100%; padding:1.2rem 5%;
             display:flex; justify-content:space-between; align-items:center;
@@ -80,7 +80,7 @@
         .user-counter { display:inline-flex; align-items:center; gap:0.5rem; padding:0.5rem 1rem; background:rgba(109,34,204,0.1); border:1px solid var(--border); border-radius:50px; font-size:0.85rem; color:var(--text-dim); }
         .user-counter .live-counter { font-weight:700; color:var(--purple-bright); }
 
-        /* HERO */
+        
         .hero { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:9rem 5% 5rem; position:relative; z-index:1; }
         .hero-content { max-width:860px; text-align:center; }
         .beta-badge { position:absolute; top:20px; right:20px; background:linear-gradient(135deg,var(--purple-dim),var(--purple)); color:#fff; padding:0.3rem 0.8rem; border-radius:10px; font-size:0.72rem; font-weight:700; letter-spacing:0.08em; }
@@ -111,14 +111,14 @@
         .btn-secondary { background:rgba(109,34,204,0.08); color:var(--text-dim); border:1px solid var(--border); }
         .btn-secondary:hover { border-color:var(--border-bright); color:var(--phantom); background:rgba(109,34,204,0.18); }
 
-        /* SECTIONS */
+        
         .section-z { position:relative; z-index:1; }
         .section-header { text-align:center; margin-bottom:3.5rem; }
         .section-label { display:inline-block; padding:0.45rem 1rem; background:rgba(155,69,245,0.1); border:1px solid rgba(155,69,245,0.35); border-radius:50px; color:var(--purple-bright); font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:1rem; }
         h2 { font-size:clamp(1.9rem,4.5vw,2.8rem); font-weight:800; letter-spacing:0; margin-bottom:0.75rem; color:var(--text); }
         .section-subtitle { color:var(--text-muted); max-width:540px; margin:0 auto; font-size:1rem; }
 
-        /* BYPASSES */
+        
         .bypasses-section { padding:6rem 5%; position:relative; z-index:1; }
         .bypasses-section::before { content:''; position:absolute; inset:0; background:linear-gradient(180deg,transparent 0%,rgba(109,34,204,0.04) 50%,transparent 100%); pointer-events:none; }
         .bypasses-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1.2rem; max-width:1200px; margin:0 auto; }
@@ -133,7 +133,7 @@
         .bypass-status { display:inline-flex; align-items:center; gap:0.4rem; padding:0.3rem 0.75rem; background:rgba(52,211,153,0.1); border:1px solid rgba(52,211,153,0.25); border-radius:20px; font-size:0.75rem; color:var(--success); font-weight:600; letter-spacing:0.04em; }
         .bypass-status::before { content:''; width:5px; height:5px; background:var(--success); border-radius:50%; }
 
-        /* FEATURES */
+        
         .features { padding:6rem 5%; background:rgba(11,7,32,0.6); position:relative; z-index:1; }
         .features-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.5rem; max-width:1400px; margin:0 auto; }
         .feature-card { background:var(--bg-card); border:1px solid var(--border); border-radius:18px; padding:1.8rem; transition:all 0.28s; position:relative; overflow:hidden; }
@@ -145,7 +145,7 @@
         .feature-card h3 { font-size:1.2rem; font-weight:700; margin-bottom:0.7rem; color:var(--phantom); letter-spacing:0; }
         .feature-card p { color:var(--text-dim); font-size:0.9rem; line-height:1.65; }
 
-        /* PRICING */
+        
         .pricing { padding:6rem 5%; position:relative; z-index:1; }
         .pricing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:2rem; max-width:900px; margin:3.5rem auto 0; }
         .pricing-card { background:var(--bg-card); border:1px solid var(--border); border-radius:22px; padding:2.8rem; text-align:center; transition:all 0.3s; position:relative; overflow:hidden; }
@@ -163,7 +163,7 @@
         .pricing-features li i { color:var(--success); font-size:0.85rem; }
         .pricing-card .btn { width:100%; justify-content:center; margin-top:1.5rem; }
 
-        /* TESTIMONIALS */
+        
         .testimonials { padding:6rem 5%; background:rgba(11,7,32,0.6); position:relative; z-index:1; }
         .testimonials-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem; max-width:1200px; margin:3.5rem auto 0; }
         .testimonial-card { background:var(--bg-card); border:1px solid var(--border); border-radius:18px; padding:1.8rem; transition:all 0.28s; }
@@ -175,7 +175,7 @@
         .testimonial-date { font-size:0.78rem; color:var(--text-muted); }
         .testimonial-text { color:var(--text-dim); font-size:0.9rem; line-height:1.65; }
 
-        /* UPDATES */
+        
         .updates { padding:6rem 5%; position:relative; z-index:1; }
         .updates-timeline { max-width:780px; margin:3.5rem auto 0; position:relative; }
         .updates-timeline::before { content:''; position:absolute; left:30px; top:0; bottom:0; width:1px; background:linear-gradient(180deg,transparent,var(--purple),transparent); }
@@ -188,7 +188,7 @@
         .update-tag { display:inline-block; padding:0.22rem 0.7rem; background:rgba(155,69,245,0.1); border:1px solid rgba(155,69,245,0.3); border-radius:20px; font-size:0.72rem; color:var(--purple-bright); font-weight:700; margin-bottom:0.8rem; letter-spacing:0.06em; text-transform:uppercase; }
         .update-text { color:var(--text-dim); font-size:0.9rem; line-height:1.65; }
 
-        /* SUPPORT */
+        
         .support-section { padding:6rem 5%; background:rgba(11,7,32,0.6); position:relative; z-index:1; }
         .hwid-form { background:var(--bg-card); border:1px solid var(--border); border-radius:20px; padding:2.5rem; max-width:680px; margin:3.5rem auto 0; }
         .form-group { margin-bottom:1.4rem; }
@@ -204,7 +204,7 @@
         .discord-cta a { color:var(--purple-bright); text-decoration:none; font-weight:600; transition:color 0.25s; }
         .discord-cta a:hover { color:var(--violet); }
 
-        /* FOOTER */
+        
         .footer { padding:4rem 5%; background:rgba(5,3,16,0.9); border-top:1px solid var(--border); position:relative; z-index:1; }
         .footer-content { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:3rem; }
         .footer-section h3 { font-size:1.15rem; font-weight:700; margin-bottom:1.3rem; color:var(--phantom); }
@@ -218,7 +218,7 @@
         .social-links a:hover { background:rgba(155,69,245,0.2); border-color:var(--border-bright); color:var(--purple-bright); transform:translateY(-3px); }
         .copyright { text-align:center; margin-top:3.5rem; padding-top:2rem; border-top:1px solid var(--border); color:var(--text-muted); font-size:0.82rem; line-height:1.8; }
 
-        /* MODAL */
+        
         .modal { display:none; position:fixed; inset:0; background:rgba(5,3,16,0.85); backdrop-filter:blur(12px); z-index:10000; align-items:center; justify-content:center; padding:1rem; }
         .modal-content { background:var(--bg-1); border:1px solid var(--border-bright); border-radius:22px; padding:2.8rem; max-width:500px; width:100%; position:relative; animation:modalIn 0.3s cubic-bezier(0.34,1.56,0.64,1); box-shadow:0 0 60px rgba(109,34,204,0.35); }
         @keyframes modalIn { from{opacity:0;transform:translateY(-20px) scale(0.95)} to{opacity:1;transform:translateY(0) scale(1)} }
@@ -231,11 +231,11 @@
         .modal-info-box p { color:var(--text-dim); font-size:0.85rem; line-height:1.8; margin:0; }
         .modal .btn { width:100%; justify-content:center; }
 
-        /* FADE */
+        
         .fade-in { opacity:0; transform:translateY(24px); transition:opacity 0.55s,transform 0.55s; }
         .fade-in.visible { opacity:1; transform:translateY(0); }
 
-        /* RESPONSIVE */
+        
         @media(max-width:992px) { .nav-links{display:none} .mobile-menu-btn{display:block} .hero-stats{gap:2rem} .stat::after{display:none} }
         @media(max-width:768px) { .hero{padding:7rem 5% 3rem} .hero-buttons{flex-direction:column;align-items:center} .btn{width:100%;max-width:300px;justify-content:center} .features-grid{grid-template-columns:1fr} .modal-content{padding:2rem 1.4rem} .bypasses-grid{grid-template-columns:repeat(2,1fr)} }
         @media(max-width:480px) { .bypasses-grid{grid-template-columns:1fr 1fr} }
